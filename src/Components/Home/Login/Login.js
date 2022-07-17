@@ -8,7 +8,10 @@ export default function Login(props) {
   }
 
   return (
-    <div className="login">
+    <div
+      className="login"
+      style={props.userLoggedIn ? { display: "none" } : { display: "block" }}
+    >
       <h3 className="login-title">Log in anonymously: </h3>
       <form>
         <label htmlFor="name">
@@ -18,7 +21,15 @@ export default function Login(props) {
             onChange={handleChange}
           ></input>
         </label>
-        <button className="login-button">Log in!</button>
+        <button
+          className="login-button"
+          onClick={(e) => {
+            e.preventDefault();
+            props.userLogin(userName);
+          }}
+        >
+          Log in!
+        </button>
       </form>
     </div>
   );
