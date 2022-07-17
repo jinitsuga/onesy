@@ -51,3 +51,10 @@ function App() {
 }
 
 export default App;
+
+// 0. Create login
+// 1. Get client data
+// 2. Get iterated following data (from client)
+// 3. (same iteration) Get following tweets
+// 4. Form "following" user objects with metadata and their tweets
+// 5. Show feed of tweets, ordered by date.
