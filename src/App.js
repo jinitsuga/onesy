@@ -49,10 +49,11 @@ function App() {
   const [userLoggedIn, setUserLoggedIn] = React.useState(false);
   const [userData, setUserData] = React.useState({});
 
-  async function userLogin(userInfo) {
+  async function userLogin(userName, userBio) {
     const user = doc(collection(database, "users"));
     const addUser = await setDoc(user, {
-      name: userInfo,
+      name: userName,
+      bio: userBio,
       following: [
         "gz3xzLQfCKdzIxsNHB0n",
         "OGmanCsPkvM0cDHaC2CC",
@@ -60,8 +61,9 @@ function App() {
       ],
     });
     setUserData({
-      name: userInfo,
+      name: userName,
       id: user.id,
+      bio: userBio,
       following: [
         "gz3xzLQfCKdzIxsNHB0n",
         "OGmanCsPkvM0cDHaC2CC",
