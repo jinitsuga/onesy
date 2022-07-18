@@ -13,7 +13,7 @@ const ghostUsers = [
     metadata: {
       name: "Doge",
       avatar: "",
-      bio: "i only follow my hooman",
+      bio: "Not following you, i only follow my hooman",
     },
     id: "OGmanCsPkvM0cDHaC2CC",
     followers: [],

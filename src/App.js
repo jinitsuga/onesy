@@ -18,19 +18,10 @@ import { ghostUsers } from "./ghostUsers";
 const app = initializeApp(firebaseConfig);
 const database = getFirestore(app);
 
-const q = doc(database, "users", "OGmanCsPkvM0cDHaC2CC");
+const usersRef = collection(database, "users");
+const tweetsRef = collection(database, "tweets");
 
-async function printUsersCollection() {
-  const querySnap = await getDoc(q);
-
-  console.log(querySnap.data());
-}
-printUsersCollection();
-
-async function fakeLogIn(username) {
-  const randUser = doc(collection(database, "users"));
-  const userData = await setDoc(randUser, username);
-}
+// Getting tweets from followed users -->
 
 // ----- Code to run in case of issue with 'users' collection -----
 // adding ghost users
@@ -49,15 +40,24 @@ function App() {
   const [userLoggedIn, setUserLoggedIn] = React.useState(false);
   const [userData, setUserData] = React.useState({});
 
+  async function getTweets() {
+    console.log("LUL");
+    const q = query(tweetsRef, where("userid", "in", "gtU3Eb7zFD264YvnND5v"));
+    const querySnap = await getDocs(q);
+    querySnap.forEach((doc) => {
+      console.log(doc.data());
+    });
+  }
+  getTweets();
   async function userLogin(userName, userBio) {
     const user = doc(collection(database, "users"));
     const addUser = await setDoc(user, {
       name: userName,
       bio: userBio,
       following: [
-        "gz3xzLQfCKdzIxsNHB0n",
-        "OGmanCsPkvM0cDHaC2CC",
-        "KxBr3e3fhIBgryYzKbXc",
+        "SY9m6DQrvfdTBufof6bu",
+        "bWMWhxJOE1tvPHjaomdP",
+        "gtU3Eb7zFD264YvnND5v",
       ],
     });
     setUserData({
@@ -72,7 +72,7 @@ function App() {
     });
     setUserLoggedIn(true);
   }
-  console.log(userData);
+  //console.log(userData.following);
   return (
     <div className="App">
       <Home
