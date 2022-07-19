@@ -21,8 +21,6 @@ const database = getFirestore(app);
 const usersRef = collection(database, "users");
 const tweetsRef = collection(database, "tweets");
 
-// Getting tweets from followed users -->
-
 // ----- Code to run in case of issue with 'users' collection -----
 // adding ghost users
 // async function addGhostUser(user) {
@@ -40,9 +38,10 @@ function App() {
   const [userLoggedIn, setUserLoggedIn] = React.useState(false);
   const [userData, setUserData] = React.useState({});
 
+  // getting tweets from users that client is following
   async function getTweets() {
     console.log("LUL");
-    const q = query(tweetsRef, where("userid", "in", "gtU3Eb7zFD264YvnND5v"));
+    const q = query(tweetsRef, where("userid", "in", userData.following));
     const querySnap = await getDocs(q);
     querySnap.forEach((doc) => {
       console.log(doc.data());
@@ -65,14 +64,14 @@ function App() {
       id: user.id,
       bio: userBio,
       following: [
-        "gz3xzLQfCKdzIxsNHB0n",
-        "OGmanCsPkvM0cDHaC2CC",
-        "KxBr3e3fhIBgryYzKbXc",
+        "SY9m6DQrvfdTBufof6bu",
+        "bWMWhxJOE1tvPHjaomdP",
+        "gtU3Eb7zFD264YvnND5v",
       ],
     });
     setUserLoggedIn(true);
   }
-  //console.log(userData.following);
+  //console.log(userData);
   return (
     <div className="App">
       <Home
