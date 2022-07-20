@@ -39,15 +39,16 @@ function App() {
   const [userData, setUserData] = React.useState({});
 
   // getting tweets from users that client is following
-  async function getTweets() {
-    console.log("LUL");
+  async function getTweets(tweetsStorage) {
+    let tweets = [];
     const q = query(tweetsRef, where("userid", "in", userData.following));
     const querySnap = await getDocs(q);
     querySnap.forEach((doc) => {
       console.log(doc.data());
+      tweets.push(doc);
     });
   }
-  getTweets();
+
   async function userLogin(userName, userBio) {
     const user = doc(collection(database, "users"));
     const addUser = await setDoc(user, {
@@ -78,6 +79,7 @@ function App() {
         userLogin={userLogin}
         userLoggedIn={userLoggedIn}
         userData={userData}
+        getTweets={getTweets}
       />
     </div>
   );

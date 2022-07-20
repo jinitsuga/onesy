@@ -1,6 +1,8 @@
 import React from "react";
 import "./Personal.css";
 export default function Personal(props) {
+  // Personal info / "Header" component at the top of the application
+
   return (
     <div className="personal-display">
       <header></header>
