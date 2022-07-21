@@ -52,7 +52,11 @@ function App() {
       getDoc(userPromises[0]),
       getDoc(userPromises[1]),
       getDoc(userPromises[2]),
-    ]).then((values) => values.forEach((value) => followed.push(value.data())));
+    ]).then((values) =>
+      values.forEach((value) =>
+        followed.push({ id: value.id, data: value.data() })
+      )
+    );
     setFollowedUsers(followed);
   }
 
@@ -67,9 +71,8 @@ function App() {
     });
     setFeedTweets(tweets);
   }
-  React.useEffect(() => {
-    getTweets();
-  }, []);
+  console.log(followedUsers);
+  //megalul yeap
   async function userLogin(userName, userBio) {
     const user = doc(collection(database, "users"));
     const addUser = await setDoc(user, {
@@ -94,15 +97,16 @@ function App() {
     setUserLoggedIn(true);
   }
 
-  console.log(feedTweets);
   return (
     <div className="App">
       <Home
-        getFollowed={getFollowed}
         userLogin={userLogin}
         userLoggedIn={userLoggedIn}
         userData={userData}
         getTweets={getTweets}
+        getFollowed={getFollowed}
+        feedTweets={feedTweets}
+        followedUsers={followedUsers}
       />
     </div>
   );
