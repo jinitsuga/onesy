@@ -37,18 +37,39 @@ const tweetsRef = collection(database, "tweets");
 function App() {
   const [userLoggedIn, setUserLoggedIn] = React.useState(false);
   const [userData, setUserData] = React.useState({});
+  const [feedTweets, setFeedTweets] = React.useState([]);
+  const [followedUsers, setFollowedUsers] = React.useState([]);
+
+  // getting followed users data to form tweet components
+  async function getFollowed() {
+    let userPromises = [];
+    let followed = [];
+    userData.following.forEach((userid) =>
+      userPromises.push(doc(database, "users", userid))
+    );
+
+    await Promise.all([
+      getDoc(userPromises[0]),
+      getDoc(userPromises[1]),
+      getDoc(userPromises[2]),
+    ]).then((values) => values.forEach((value) => followed.push(value.data())));
+    setFollowedUsers(followed);
+  }
 
   // getting tweets from users that client is following
-  async function getTweets(tweetsStorage) {
+  async function getTweets() {
     let tweets = [];
     const q = query(tweetsRef, where("userid", "in", userData.following));
     const querySnap = await getDocs(q);
     querySnap.forEach((doc) => {
-      console.log(doc.data());
-      tweets.push(doc);
+      //console.log(doc.data());
+      tweets.push(doc.data());
     });
+    setFeedTweets(tweets);
   }
-
+  React.useEffect(() => {
+    getTweets();
+  }, []);
   async function userLogin(userName, userBio) {
     const user = doc(collection(database, "users"));
     const addUser = await setDoc(user, {
@@ -72,10 +93,12 @@ function App() {
     });
     setUserLoggedIn(true);
   }
-  //console.log(userData);
+
+  console.log(feedTweets);
   return (
     <div className="App">
       <Home
+        getFollowed={getFollowed}
         userLogin={userLogin}
         userLoggedIn={userLoggedIn}
         userData={userData}

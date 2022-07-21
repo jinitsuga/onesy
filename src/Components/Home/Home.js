@@ -11,7 +11,7 @@ export default function Home(props) {
       ) : (
         ""
       )}
-      {props.userLoggedIn ? <Feed /> : ""}
+      {props.userLoggedIn ? <Feed getTweets={props.getTweets} /> : ""}
     </section>
   );
 }
