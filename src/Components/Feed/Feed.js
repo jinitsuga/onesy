@@ -21,7 +21,7 @@ export default function Feed(props) {
             avatar: user.data.metadata.avatar,
             text: tweets[i].text,
             likes: tweets[i].likes,
-            date: tweets[i].date,
+            date: tweets[i].date.toDate().toDateString(),
           });
         }
       }
@@ -37,7 +37,7 @@ export default function Feed(props) {
       text={tweet.text}
       likes={tweet.likes}
       avatar={tweet.avatar}
-      date={tweet.date.seconds}
+      date={tweet.date}
     />
   ));
 
