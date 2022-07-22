@@ -6,6 +6,7 @@ export default function Feed(props) {
     props.getTweets();
     props.getFollowed();
   }, []);
+
   const followed = props.followedUsers;
   const tweets = props.feedTweets;
 
@@ -27,11 +28,11 @@ export default function Feed(props) {
         }
       }
     });
-    // sort tweets by date
+
+    // sort tweets by date using dateSeconds prop.
     tweetObjs.sort(function (a, b) {
       return b.dateSeconds - a.dateSeconds;
     });
-    // re-format dates to readable date
 
     userTweets = tweetObjs;
     console.log(userTweets);

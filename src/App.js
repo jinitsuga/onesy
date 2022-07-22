@@ -66,13 +66,12 @@ function App() {
     const q = query(tweetsRef, where("userid", "in", userData.following));
     const querySnap = await getDocs(q);
     querySnap.forEach((doc) => {
-      //console.log(doc.data());
       tweets.push(doc.data());
     });
     setFeedTweets(tweets);
   }
   console.log(followedUsers);
-  //megalul yeap
+
   async function userLogin(userName, userBio) {
     const user = doc(collection(database, "users"));
     const addUser = await setDoc(user, {
@@ -82,6 +81,7 @@ function App() {
         "SY9m6DQrvfdTBufof6bu",
         "bWMWhxJOE1tvPHjaomdP",
         "gtU3Eb7zFD264YvnND5v",
+        user.id,
       ],
     });
     setUserData({
@@ -92,6 +92,7 @@ function App() {
         "SY9m6DQrvfdTBufof6bu",
         "bWMWhxJOE1tvPHjaomdP",
         "gtU3Eb7zFD264YvnND5v",
+        user.id,
       ],
     });
     setUserLoggedIn(true);
