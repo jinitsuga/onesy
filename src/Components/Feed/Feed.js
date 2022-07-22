@@ -21,11 +21,18 @@ export default function Feed(props) {
             avatar: user.data.metadata.avatar,
             text: tweets[i].text,
             likes: tweets[i].likes,
+            dateSeconds: tweets[i].date.seconds,
             date: tweets[i].date.toDate().toDateString(),
           });
         }
       }
     });
+    // sort tweets by date
+    tweetObjs.sort(function (a, b) {
+      return b.dateSeconds - a.dateSeconds;
+    });
+    // re-format dates to readable date
+
     userTweets = tweetObjs;
     console.log(userTweets);
   }
