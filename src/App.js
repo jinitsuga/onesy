@@ -60,7 +60,7 @@ function App() {
     setFollowedUsers(followed);
   }
 
-  // getting tweets from users that client is following
+  // getting tweets from users that client is following  eyer
   async function getTweets() {
     let tweets = [];
     const q = query(tweetsRef, where("userid", "in", userData.following));

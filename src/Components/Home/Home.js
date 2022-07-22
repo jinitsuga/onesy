@@ -12,7 +12,12 @@ export default function Home(props) {
         ""
       )}
       {props.userLoggedIn ? (
-        <Feed getTweets={props.getTweets} getFollowed={props.getFollowed} />
+        <Feed
+          getTweets={props.getTweets}
+          getFollowed={props.getFollowed}
+          feedTweets={props.feedTweets}
+          followedUsers={props.followedUsers}
+        />
       ) : (
         ""
       )}

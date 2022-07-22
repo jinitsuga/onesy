@@ -13,13 +13,13 @@ export default function Tweet(props) {
   return (
     <div className="tweet">
       <div className="tweet-userinfo">
-        <img className="tweet-avatar" href="#"></img>
-        <h4 className="tweet-username"></h4>
+        <img className="tweet-avatar" href={props.avatar}></img>
+        <h4 className="tweet-username">{props.name}</h4>
       </div>
-      <p className="tweet-text"></p>
+      <p className="tweet-text"> {props.text} </p>
       <div className="tweet-details">
-        <span className="tweet-date"></span>
-        <span className="tweet-likes"></span>
+        <span className="tweet-date"> {props.date} </span>
+        <span className="tweet-likes"> {props.likes} </span>
       </div>
     </div>
   );
