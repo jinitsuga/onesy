@@ -70,7 +70,7 @@ function App() {
     });
     setFeedTweets(tweets);
   }
-  console.log(followedUsers);
+  console.log(feedTweets);
 
   async function userLogin(userName, userBio) {
     const user = doc(collection(database, "users"));
