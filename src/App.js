@@ -41,6 +41,7 @@ function App() {
   const [followedUsers, setFollowedUsers] = React.useState([]);
 
   // getting followed users data to form tweet components
+  // this seems like BAD PRACTICE, given that I'm hardcoding the getDoc(promise) 1 by 1. NEEDS REDOING
   async function getFollowed() {
     let userPromises = [];
     let followed = [];
@@ -65,12 +66,16 @@ function App() {
     let tweets = [];
     const q = query(tweetsRef, where("userid", "in", userData.following));
     const querySnap = await getDocs(q);
+
     querySnap.forEach((doc) => {
       tweets.push(doc.data());
     });
     setFeedTweets(tweets);
   }
-  console.log(feedTweets);
+
+  //  Sending new tweet to the backend and adding it to the frontend state on the same click
+  // (This is probably very wrong)
+  async function sendNewTweet(text) {}
 
   async function userLogin(userName, userBio) {
     const user = doc(collection(database, "users"));
