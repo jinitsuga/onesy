@@ -24,6 +24,7 @@ export default function Feed(props) {
             likes: tweets[i].likes,
             dateSeconds: tweets[i].date.seconds,
             date: tweets[i].date.toDate().toDateString(),
+            key: i,
           });
         }
       }
@@ -35,7 +36,7 @@ export default function Feed(props) {
     });
 
     userTweets = tweetObjs;
-    console.log(userTweets);
+    //console.log(userTweets);
   }
   formTweetUsers();
 

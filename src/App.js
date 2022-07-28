@@ -39,9 +39,8 @@ function App() {
   const [userData, setUserData] = React.useState({});
   const [feedTweets, setFeedTweets] = React.useState([]);
   const [followedUsers, setFollowedUsers] = React.useState([]);
-
+  console.log(userData);
   // getting followed users data to form tweet components
-  // this seems like BAD PRACTICE, given that I'm hardcoding the getDoc(promise) 1 by 1. NEEDS REDOING
   async function getFollowed() {
     let userPromises = [];
     let followed = [];
@@ -49,11 +48,9 @@ function App() {
       userPromises.push(doc(database, "users", userid))
     );
 
-    await Promise.all([
-      getDoc(userPromises[0]),
-      getDoc(userPromises[1]),
-      getDoc(userPromises[2]),
-    ]).then((values) =>
+    const followedPromises = userPromises.map((prom) => getDoc(prom));
+
+    await Promise.all(followedPromises).then((values) =>
       values.forEach((value) =>
         followed.push({ id: value.id, data: value.data() })
       )
@@ -61,7 +58,7 @@ function App() {
     setFollowedUsers(followed);
   }
 
-  // getting tweets from users that client is following  eyer
+  // getting tweets from users that client is following
   async function getTweets() {
     let tweets = [];
     const q = query(tweetsRef, where("userid", "in", userData.following));
@@ -74,9 +71,32 @@ function App() {
   }
 
   //  Sending new tweet to the backend and adding it to the frontend state on the same click
-  // (This is probably very wrong)
-  async function sendNewTweet(text) {}
-
+  // (This is probably very wrong but saves costly backend calls)
+  async function addTweetToDatabase(text) {
+    const docRef = await addDoc(collection(database, "tweets"), {
+      userid: userData.id,
+      text: text,
+      likes: 0,
+      date: new Date().toDateString(),
+    });
+    console.log(docRef);
+  }
+  function addTweetToFeed(text) {
+    setFeedTweets([
+      ...feedTweets,
+      {
+        userid: userData.id,
+        text: text,
+        likes: 0,
+        date: new Date().toDateString(),
+      },
+    ]);
+    console.log(feedTweets);
+  }
+  function addTweet(text) {
+    addTweetToDatabase(text);
+    addTweetToFeed(text);
+  }
   async function userLogin(userName, userBio) {
     const user = doc(collection(database, "users"));
     const addUser = await setDoc(user, {
@@ -113,6 +133,7 @@ function App() {
         getFollowed={getFollowed}
         feedTweets={feedTweets}
         followedUsers={followedUsers}
+        addTweet={addTweet}
       />
     </div>
   );

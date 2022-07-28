@@ -15,7 +15,9 @@ export default function Post(props) {
         className="new-tweet-text"
         placeholder={"Anything to share, " + props.userData.name + "?"}
       ></input>
-      <button className="submit-post">Send</button>
+      <button className="submit-post" onClick={props.sendNewTweet}>
+        Send
+      </button>
     </div>
   );
 }
