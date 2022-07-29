@@ -16,6 +16,7 @@ export default function Feed(props) {
     let tweetObjs = [];
     followed.forEach((user) => {
       for (let i = 0; i < tweets.length; i++) {
+        console.log(tweets[i]);
         if (tweets[i].userid == user.id) {
           tweetObjs.push({
             name: user.data.metadata.name,
@@ -23,7 +24,10 @@ export default function Feed(props) {
             text: tweets[i].text,
             likes: tweets[i].likes,
             dateSeconds: tweets[i].date.seconds,
-            date: tweets[i].date.toDate().toDateString(),
+            date:
+              typeof tweets[i].date == "string"
+                ? tweets[i].date
+                : tweets[i].date.toDate().toDateString(),
             key: i,
           });
         }
@@ -36,7 +40,6 @@ export default function Feed(props) {
     });
 
     userTweets = tweetObjs;
-    console.log(userTweets);
   }
   formTweetUsers();
 
