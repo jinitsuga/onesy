@@ -40,6 +40,7 @@ function App() {
   const [feedTweets, setFeedTweets] = React.useState([]);
   const [followedUsers, setFollowedUsers] = React.useState([]);
   console.log(userData);
+
   // getting followed users data to form tweet components
   async function getFollowed() {
     let userPromises = [];
@@ -97,6 +98,8 @@ function App() {
     addTweetToDatabase(text);
     addTweetToFeed(text);
   }
+
+  // User log in - follows itself and ghost users automatically in order to show stuff on feed.
   async function userLogin(userName, userBio) {
     const user = doc(collection(database, "users"));
     const addUser = await setDoc(user, {

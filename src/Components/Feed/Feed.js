@@ -36,7 +36,7 @@ export default function Feed(props) {
     });
 
     userTweets = tweetObjs;
-    //console.log(userTweets);
+    console.log(userTweets);
   }
   formTweetUsers();
 
@@ -47,6 +47,7 @@ export default function Feed(props) {
       likes={tweet.likes}
       avatar={tweet.avatar}
       date={tweet.date}
+      key={tweet.key}
     />
   ));
 
