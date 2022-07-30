@@ -14,6 +14,7 @@ export default function Tweet(props) {
       <div className="tweet-details">
         <span className="tweet-date"> {props.date} </span>
         <span className="tweet-likes"> Likes: {props.likes} </span>
+        <button className="like-tweet">Like this tweet</button>
       </div>
     </div>
   );

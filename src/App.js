@@ -98,6 +98,8 @@ function App() {
     addTweetToFeed(text);
   }
 
+  // Likes handler functions - on both front and backend
+
   // User log in - follows itself and ghost users automatically in order to show stuff on feed
   async function userLogin(userName, userBio) {
     const user = doc(collection(database, "users"));
