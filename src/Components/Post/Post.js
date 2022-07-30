@@ -14,12 +14,15 @@ export default function Post(props) {
         type="text"
         className="new-tweet-text"
         placeholder={"Anything to share, " + props.userData.name + "?"}
+        value={tweetText}
       ></input>
       <button
         className="submit-post"
         onClick={(e) => {
           e.preventDefault();
           props.addTweet(tweetText);
+
+          setTweetText("");
         }}
       >
         Send
