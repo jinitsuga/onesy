@@ -11,22 +11,25 @@ export default function Feed(props) {
   const tweets = props.feedTweets;
 
   let userTweets = [];
+
   // Forming "user" objects in this Feed component, to have it easier constructing tweets.
   function formTweetUsers() {
     let tweetObjs = [];
     followed.forEach((user) => {
       for (let i = 0; i < tweets.length; i++) {
-        console.log(tweets[i]);
         if (tweets[i].userid == user.id) {
+          console.log(tweets[i].date.seconds);
           tweetObjs.push({
             name: user.data.metadata.name,
             avatar: user.data.metadata.avatar,
             text: tweets[i].text,
             likes: tweets[i].likes,
-            dateSeconds: tweets[i].date.seconds,
+            dateSeconds: tweets[i].date.seconds
+              ? tweets[i].date.seconds
+              : tweets[i].date.valueOf(),
             date:
-              typeof tweets[i].date == "string"
-                ? tweets[i].date
+              tweets[i].date instanceof Date
+                ? tweets[i].date.toDateString()
                 : tweets[i].date.toDate().toDateString(),
             key: i,
           });

@@ -72,15 +72,14 @@ function App() {
   }
 
   //  Sending new tweet to the backend and adding it to the frontend state on the same click
-  // (This is probably very wrong but saves costly backend calls)
+  // (This is probably wrong but saves costly backend calls)
   async function addTweetToDatabase(text) {
     const docRef = await addDoc(collection(database, "tweets"), {
       userid: userData.id,
       text: text,
       likes: 0,
-      date: new Date().toDateString(),
+      date: new Date(),
     });
-    console.log(docRef);
   }
   function addTweetToFeed(text) {
     setFeedTweets([
@@ -89,7 +88,7 @@ function App() {
         userid: userData.id,
         text: text,
         likes: 0,
-        date: new Date().toDateString(),
+        date: new Date(),
       },
     ]);
     console.log(feedTweets);
