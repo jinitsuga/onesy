@@ -18,7 +18,8 @@ export default function Tweet(props) {
           className="like-tweet"
           onClick={(e) => {
             e.preventDefault();
-            console.log(e.target.parentElement);
+            console.log(e.target.parentElement.id);
+            props.likeTweetDb(e.target.parentElement.id);
           }}
         >
           Like this tweet

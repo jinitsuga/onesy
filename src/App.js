@@ -3,7 +3,7 @@ import React from "react";
 import Home from "./Components/Home/Home";
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "./firebase-config";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, increment } from "firebase/firestore";
 import {
   collection,
   addDoc,
@@ -13,6 +13,7 @@ import {
   where,
   getDocs,
   getDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { ghostUsers } from "./ghostUsers";
 const app = initializeApp(firebaseConfig);
@@ -94,11 +95,17 @@ function App() {
   function addTweet(text) {
     const tweet = doc(collection(database, "tweets"));
     addTweetToDatabase(text, tweet);
-    addTweetToFeed(text, "bruh");
+    addTweetToFeed(text, tweet.id);
   }
 
   // Likes handler functions - on both front and backend
 
+  async function likeTweetDb(id) {
+    const tweetRef = doc(database, "tweets", id);
+    await updateDoc(tweetRef, {
+      likes: increment(1),
+    });
+  }
   // User log in - follows itself and ghost users automatically in order to show stuff on feed
   async function userLogin(userName, userBio) {
     const user = doc(collection(database, "users"));
@@ -139,6 +146,7 @@ function App() {
         feedTweets={feedTweets}
         followedUsers={followedUsers}
         addTweet={addTweet}
+        likeTweetDb={likeTweetDb}
       />
     </div>
   );

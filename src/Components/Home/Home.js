@@ -22,6 +22,7 @@ export default function Home(props) {
           getFollowed={props.getFollowed}
           feedTweets={props.feedTweets}
           followedUsers={props.followedUsers}
+          likeTweetDb={props.likeTweetDb}
         />
       )}
     </section>
