@@ -11,10 +11,18 @@ export default function Tweet(props) {
         <h4 className="tweet-username">{props.name}</h4>
       </div>
       <p className="tweet-text"> {props.text} </p>
-      <div className="tweet-details">
+      <div className="tweet-details" id={props.id}>
         <span className="tweet-date"> {props.date} </span>
         <span className="tweet-likes"> Likes: {props.likes} </span>
-        <button className="like-tweet">Like this tweet</button>
+        <button
+          className="like-tweet"
+          onClick={(e) => {
+            e.preventDefault();
+            console.log(e.target.parentElement);
+          }}
+        >
+          Like this tweet
+        </button>
       </div>
     </div>
   );

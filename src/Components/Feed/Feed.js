@@ -17,21 +17,23 @@ export default function Feed(props) {
     let tweetObjs = [];
     followed.forEach((user) => {
       for (let i = 0; i < tweets.length; i++) {
-        if (tweets[i].userid == user.id) {
-          console.log(tweets[i].date.seconds);
+        if (tweets[i].data.userid == user.id) {
           tweetObjs.push({
             name: user.data.metadata.name,
             avatar: user.data.metadata.avatar,
-            text: tweets[i].text,
-            likes: tweets[i].likes,
-            dateSeconds: tweets[i].date.seconds
-              ? tweets[i].date.seconds
-              : tweets[i].date.valueOf(),
+            text: tweets[i].data.text,
+            likes: tweets[i].data.likes,
+
+            // Firebase's "timestamp" object is different than a regular Date object so had to tweak
+            dateSeconds: tweets[i].data.date.seconds
+              ? tweets[i].data.date.seconds
+              : tweets[i].data.date.valueOf(),
             date:
-              tweets[i].date instanceof Date
-                ? tweets[i].date.toDateString()
-                : tweets[i].date.toDate().toDateString(),
+              tweets[i].data.date instanceof Date
+                ? tweets[i].data.date.toDateString()
+                : tweets[i].data.date.toDate().toDateString(),
             key: i,
+            id: tweets[i].id,
           });
         }
       }
@@ -44,8 +46,9 @@ export default function Feed(props) {
 
     userTweets = tweetObjs;
   }
-  formTweetUsers();
 
+  formTweetUsers();
+  console.log(userTweets);
   const shownTweets = userTweets.map((tweet) => (
     <Tweet
       name={tweet.name}
@@ -54,6 +57,7 @@ export default function Feed(props) {
       avatar={tweet.avatar}
       date={tweet.date}
       key={tweet.key}
+      id={tweet.id}
     />
   ));
 

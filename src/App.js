@@ -39,7 +39,7 @@ function App() {
   const [userData, setUserData] = React.useState({});
   const [feedTweets, setFeedTweets] = React.useState([]);
   const [followedUsers, setFollowedUsers] = React.useState([]);
-  //console.log(userData);
+  //console.log(feedTweets);
 
   // getting followed users data to form tweet components
   async function getFollowed() {
@@ -66,36 +66,35 @@ function App() {
     const querySnap = await getDocs(q);
 
     querySnap.forEach((doc) => {
-      tweets.push(doc.data());
+      tweets.push({ data: doc.data(), id: doc.id });
     });
     setFeedTweets(tweets);
   }
 
   //  Sending new tweet to the backend and adding it to the frontend state on the same click
-  // (This is probably wrong but saves costly backend calls)
-  async function addTweetToDatabase(text) {
-    const docRef = await addDoc(collection(database, "tweets"), {
+  // (This is probably wrong but saves costly backend calls + sharing doc id with front end feels wrong)
+  async function addTweetToDatabase(text, doc) {
+    const docSent = await setDoc(doc, {
       userid: userData.id,
       text: text,
       likes: 0,
       date: new Date(),
     });
   }
-  function addTweetToFeed(text) {
+  function addTweetToFeed(text, id) {
     setFeedTweets([
       ...feedTweets,
       {
-        userid: userData.id,
-        text: text,
-        likes: 0,
-        date: new Date(),
+        data: { userid: userData.id, text: text, likes: 0, date: new Date() },
+        id: id,
       },
     ]);
     console.log(feedTweets);
   }
   function addTweet(text) {
-    addTweetToDatabase(text);
-    addTweetToFeed(text);
+    const tweet = doc(collection(database, "tweets"));
+    addTweetToDatabase(text, tweet);
+    addTweetToFeed(text, "bruh");
   }
 
   // Likes handler functions - on both front and backend
