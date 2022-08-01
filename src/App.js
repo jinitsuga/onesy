@@ -41,7 +41,7 @@ function App() {
   const [feedTweets, setFeedTweets] = React.useState([]);
   const [followedUsers, setFollowedUsers] = React.useState([]);
   //console.log(feedTweets);
-
+  console.log(feedTweets);
   // getting followed users data to form tweet components
   async function getFollowed() {
     let userPromises = [];
@@ -106,6 +106,29 @@ function App() {
       likes: increment(1),
     });
   }
+
+  function likeTweetApp(id) {
+    setFeedTweets((oldTweets) => {
+      const changedTweets = oldTweets.map((tweet) => {
+        if (tweet.id === id) {
+          console.log("lol");
+          return {
+            ...tweet,
+            data: { ...tweet.data, likes: tweet.data.likes + 1 },
+          };
+        } else {
+          return tweet;
+        }
+      });
+      console.log(changedTweets);
+      return changedTweets;
+    });
+  }
+
+  function likeTweet(id) {
+    likeTweetDb(id);
+    likeTweetApp(id);
+  }
   // User log in - follows itself and ghost users automatically in order to show stuff on feed
   async function userLogin(userName, userBio) {
     const user = doc(collection(database, "users"));
@@ -147,6 +170,7 @@ function App() {
         followedUsers={followedUsers}
         addTweet={addTweet}
         likeTweetDb={likeTweetDb}
+        likeTweet={likeTweet}
       />
     </div>
   );

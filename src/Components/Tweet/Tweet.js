@@ -19,7 +19,7 @@ export default function Tweet(props) {
           onClick={(e) => {
             e.preventDefault();
             console.log(e.target.parentElement.id);
-            props.likeTweetDb(e.target.parentElement.id);
+            props.likeTweet(e.target.parentElement.id);
           }}
         >
           Like this tweet

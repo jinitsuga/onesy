@@ -59,6 +59,7 @@ export default function Feed(props) {
       key={tweet.key}
       id={tweet.id}
       likeTweetDb={props.likeTweetDb}
+      likeTweet={props.likeTweet}
     />
   ));
 
