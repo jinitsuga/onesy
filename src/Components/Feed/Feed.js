@@ -21,27 +21,29 @@ export default function Feed(props) {
   let userTweets = [];
 
   // Forming "user" objects in this Feed component, to have it easier constructing tweets.
-  function formTweetUsers() {
+  function formTweetUsers(array) {
     let tweetObjs = [];
     followed.forEach((user) => {
-      for (let i = 0; i < tweets.length; i++) {
-        if (tweets[i].data.userid == user.id) {
+      for (let i = 0; i < array.length; i++) {
+        if (array[i].data.userid == user.id) {
           tweetObjs.push({
             name: user.data.metadata.name,
             avatar: user.data.metadata.avatar,
-            text: tweets[i].data.text,
-            likes: tweets[i].data.likes,
-            comments: tweets[i].data.comments,
+            text: array[i].data.text,
+            likes: array[i].data.likes,
+            comments: array[i].data.comments,
+
             // Firebase's "timestamp" object is different than a regular Date object so had to tweak
-            dateSeconds: tweets[i].data.date.seconds
-              ? tweets[i].data.date.seconds
-              : tweets[i].data.date.valueOf(),
+
+            dateSeconds: array[i].data.date.seconds
+              ? array[i].data.date.seconds
+              : array[i].data.date.valueOf(),
             date:
-              tweets[i].data.date instanceof Date
-                ? tweets[i].data.date.toDateString()
-                : tweets[i].data.date.toDate().toDateString(),
+              array[i].data.date instanceof Date
+                ? array[i].data.date.toDateString()
+                : array[i].data.date.toDate().toDateString(),
             key: i,
-            id: tweets[i].id,
+            id: array[i].id,
           });
         }
       }
@@ -55,7 +57,7 @@ export default function Feed(props) {
     userTweets = tweetObjs;
   }
 
-  formTweetUsers();
+  formTweetUsers(tweets);
   console.log(userTweets);
   const shownTweets = userTweets.map((tweet) => (
     <Tweet
