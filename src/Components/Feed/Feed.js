@@ -9,10 +9,13 @@ export default function Feed(props) {
 
   const followed = props.followedUsers;
 
-  // Filtering feed tweets to non-comment/reply tweets
+  // Separating feed tweets between non-comment/reply tweets and reply/comment tweets
 
   const tweets = props.feedTweets.filter(
     (tweet) => tweet.data.comment == false
+  );
+  const responses = props.feedTweets.filter(
+    (tweet) => tweet.data.comment == true
   );
 
   let userTweets = [];
@@ -28,7 +31,7 @@ export default function Feed(props) {
             avatar: user.data.metadata.avatar,
             text: tweets[i].data.text,
             likes: tweets[i].data.likes,
-
+            comments: tweets[i].data.comments,
             // Firebase's "timestamp" object is different than a regular Date object so had to tweak
             dateSeconds: tweets[i].data.date.seconds
               ? tweets[i].data.date.seconds

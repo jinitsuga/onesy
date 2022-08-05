@@ -20,7 +20,7 @@ export default function Post(props) {
         className="submit-post"
         onClick={(e) => {
           e.preventDefault();
-          props.addTweet(tweetText);
+          props.addTweet(tweetText, false);
 
           setTweetText("");
         }}

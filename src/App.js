@@ -74,28 +74,34 @@ function App() {
 
   //  Sending new tweet to the backend and adding it to the frontend state on the same click
   // (This is probably wrong but saves costly backend calls + sharing doc id with front end feels wrong)
-  async function addTweetToDatabase(text, doc) {
+  async function addTweetToDatabase(text, doc, comment) {
     const docSent = await setDoc(doc, {
       userid: userData.id,
       text: text,
       likes: 0,
       date: new Date(),
+      comment: comment,
     });
   }
-  function addTweetToFeed(text, id) {
+  function addTweetToFeed(text, id, comment) {
     setFeedTweets([
       ...feedTweets,
       {
-        data: { userid: userData.id, text: text, likes: 0, date: new Date() },
+        data: {
+          userid: userData.id,
+          text: text,
+          likes: 0,
+          date: new Date(),
+          comment: comment,
+        },
         id: id,
       },
     ]);
-    console.log(feedTweets);
   }
-  function addTweet(text) {
+  function addTweet(text, comment) {
     const tweet = doc(collection(database, "tweets"));
-    addTweetToDatabase(text, tweet);
-    addTweetToFeed(text, tweet.id);
+    addTweetToDatabase(text, tweet, comment);
+    addTweetToFeed(text, tweet.id, comment);
   }
 
   // Likes handler functions - on both front and backend
@@ -120,7 +126,7 @@ function App() {
           return tweet;
         }
       });
-      console.log(changedTweets);
+
       return changedTweets;
     });
   }
