@@ -4,8 +4,12 @@ import "./Tweet.css";
 // Get the tweets from users followed by client
 
 export default function Tweet(props) {
+  // log comments on click
+  function logComments() {
+    console.log(props.comments);
+  }
   return (
-    <div className="tweet">
+    <div className="tweet" id={props.id} onClick={logComments}>
       <div className="tweet-userinfo">
         <img className="tweet-avatar" href={props.avatar}></img>
         <h4 className="tweet-username">{props.name}</h4>

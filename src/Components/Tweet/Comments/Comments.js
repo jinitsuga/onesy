@@ -1,5 +1,5 @@
 import React from "react";
-import Tweet from "../../Tweet/Tweet";
+import Tweet from "../Tweet";
 
 // Simple comments component for each tweet, to render "response" tweets.
 

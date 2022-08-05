@@ -19,6 +19,7 @@ export default function Feed(props) {
   );
 
   let userTweets = [];
+  let comments = [];
 
   // Forming "user" objects in this Feed component, to have it easier constructing tweets.
   function formTweetUsers(array) {
@@ -50,28 +51,36 @@ export default function Feed(props) {
     });
 
     // sort tweets by date using dateSeconds prop.
-    tweetObjs.sort(function (a, b) {
+    return tweetObjs.sort(function (a, b) {
       return b.dateSeconds - a.dateSeconds;
     });
-
-    userTweets = tweetObjs;
   }
 
-  formTweetUsers(tweets);
+  // Forming tweets and responses objects formed with their respective authors info etc
+
+  userTweets = formTweetUsers(tweets);
   console.log(userTweets);
-  const shownTweets = userTweets.map((tweet) => (
-    <Tweet
-      name={tweet.name}
-      text={tweet.text}
-      likes={tweet.likes}
-      avatar={tweet.avatar}
-      date={tweet.date}
-      key={tweet.key}
-      id={tweet.id}
-      likeTweetDb={props.likeTweetDb}
-      likeTweet={props.likeTweet}
-    />
-  ));
+  comments = formTweetUsers(responses);
+
+  const shownTweets = userTweets.map((tweet) => {
+    const tweetComments = comments.map((comment) => {
+      if (tweet.comments.includes(comment.id)) return comment;
+    });
+    return (
+      <Tweet
+        name={tweet.name}
+        text={tweet.text}
+        likes={tweet.likes}
+        avatar={tweet.avatar}
+        date={tweet.date}
+        key={tweet.key}
+        id={tweet.id}
+        likeTweetDb={props.likeTweetDb}
+        likeTweet={props.likeTweet}
+        comments={tweetComments}
+      />
+    );
+  });
 
   return <section className="feed">{shownTweets} </section>;
 }
