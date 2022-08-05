@@ -41,7 +41,7 @@ function App() {
   const [feedTweets, setFeedTweets] = React.useState([]);
   const [followedUsers, setFollowedUsers] = React.useState([]);
   //console.log(feedTweets);
-  console.log(feedTweets);
+
   // getting followed users data to form tweet components
   async function getFollowed() {
     let userPromises = [];

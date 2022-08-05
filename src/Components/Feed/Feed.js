@@ -8,7 +8,12 @@ export default function Feed(props) {
   }, []);
 
   const followed = props.followedUsers;
-  const tweets = props.feedTweets;
+
+  // Filtering feed tweets to non-comment/reply tweets
+
+  const tweets = props.feedTweets.filter(
+    (tweet) => tweet.data.comment == false
+  );
 
   let userTweets = [];
 
