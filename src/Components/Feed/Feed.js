@@ -77,7 +77,7 @@ export default function Feed(props) {
         id={tweet.id}
         likeTweetDb={props.likeTweetDb}
         likeTweet={props.likeTweet}
-        comments={tweetComments}
+        comments={tweetComments[0] !== undefined ? tweetComments : ""}
       />
     );
   });

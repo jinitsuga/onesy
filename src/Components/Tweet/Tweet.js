@@ -5,11 +5,24 @@ import "./Tweet.css";
 
 export default function Tweet(props) {
   const [shownComments, setShownComments] = React.useState(false);
+  const [commentsFeed, setCommentsFeed] = React.useState([]);
 
   // Show comments on click
   function logComments() {
     if (props.comments[0] !== undefined) {
+      const comments = props.comments.map((comment) => (
+        <Tweet
+          name={comment.name}
+          text={comment.text}
+          id={comment.id}
+          date={comment.date}
+          comments={comment.comments}
+          likes={comment.likes}
+          key={comment.key}
+        />
+      ));
       console.log(props.comments);
+      setCommentsFeed(comments);
     }
   }
   return (
@@ -21,6 +34,9 @@ export default function Tweet(props) {
       <p className="tweet-text"> {props.text} </p>
       <div className="tweet-details" id={props.id}>
         <span className="tweet-date"> {props.date} </span>
+        {/* <span className="comments-number">
+          Comments: {props.comments.length}
+        </span> */}
         <span className="tweet-likes"> Likes: {props.likes} </span>
         <button
           className="like-tweet"
@@ -33,6 +49,7 @@ export default function Tweet(props) {
           Like this tweet
         </button>
       </div>
+      <div className="comments-container"> {commentsFeed} </div>
     </div>
   );
 }
