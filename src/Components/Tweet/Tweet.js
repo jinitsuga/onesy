@@ -4,9 +4,13 @@ import "./Tweet.css";
 // Get the tweets from users followed by client
 
 export default function Tweet(props) {
-  // log comments on click
+  const [shownComments, setShownComments] = React.useState(false);
+
+  // Show comments on click
   function logComments() {
-    console.log(props.comments);
+    if (props.comments[0] !== undefined) {
+      console.log(props.comments);
+    }
   }
   return (
     <div className="tweet" id={props.id} onClick={logComments}>
