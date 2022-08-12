@@ -21,13 +21,16 @@ export default function Tweet(props) {
     if (!tweetRef.current.contains(e.target)) {
       setShownComments(false);
     } else {
-      setShownComments(true);
-      logComments();
+      if (props.comments[0] != undefined) {
+        setShownComments(true);
+        logComments();
+      }
     }
   }
 
   // Show comments on click
   function logComments() {
+    console.log(commentsFeed);
     if (props.comments[0] !== undefined) {
       const comments = props.comments.map((comment) => (
         <Tweet
@@ -42,7 +45,7 @@ export default function Tweet(props) {
           likeTweet={props.likeTweet}
         />
       ));
-      console.log(props.comments);
+
       setCommentsFeed(comments);
     }
   }
