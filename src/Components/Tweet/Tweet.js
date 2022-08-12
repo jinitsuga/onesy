@@ -6,6 +6,25 @@ import "./Tweet.css";
 export default function Tweet(props) {
   const [shownComments, setShownComments] = React.useState(false);
   const [commentsFeed, setCommentsFeed] = React.useState([]);
+  const [tweetLiked, setTweetLiked] = React.useState(false);
+
+  const tweetRef = React.useRef(null);
+  function handleLike() {
+    setTweetLiked(true);
+  }
+
+  React.useEffect(() => {
+    document.addEventListener("click", handleClick, true);
+  }, []);
+
+  function handleClick(e) {
+    if (!tweetRef.current.contains(e.target)) {
+      setShownComments(false);
+    } else {
+      setShownComments(true);
+      logComments();
+    }
+  }
 
   // Show comments on click
   function logComments() {
@@ -19,6 +38,8 @@ export default function Tweet(props) {
           comments={comment.comments}
           likes={comment.likes}
           key={comment.key}
+          likeTweetDb={props.likeTweetDb}
+          likeTweet={props.likeTweet}
         />
       ));
       console.log(props.comments);
@@ -26,7 +47,7 @@ export default function Tweet(props) {
     }
   }
   return (
-    <div className="tweet" id={props.id} onClick={logComments}>
+    <div className="tweet" id={props.id} ref={tweetRef} onClick={handleClick}>
       <div className="tweet-userinfo">
         <img className="tweet-avatar" href={props.avatar}></img>
         <h4 className="tweet-username">{props.name}</h4>
@@ -39,17 +60,29 @@ export default function Tweet(props) {
         </span> */}
         <span className="tweet-likes"> Likes: {props.likes} </span>
         <button
+          disabled={tweetLiked ? true : false}
+          style={{ display: tweetLiked ? "none" : "" }}
           className="like-tweet"
           onClick={(e) => {
             e.preventDefault();
-            console.log(e.target.parentElement.id);
+            handleLike();
             props.likeTweet(e.target.parentElement.id);
           }}
         >
           Like this tweet
         </button>
       </div>
-      <div className="comments-container"> {commentsFeed} </div>
+      <div
+        className="comments-container"
+        style={
+          shownComments
+            ? { display: "block", border: "solid 1px" }
+            : { display: "none", border: "none" }
+        }
+      >
+        {" "}
+        {commentsFeed}{" "}
+      </div>
     </div>
   );
 }

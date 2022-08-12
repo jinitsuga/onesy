@@ -93,6 +93,7 @@ function App() {
           likes: 0,
           date: new Date(),
           comment: comment,
+          comments: [],
         },
         id: id,
       },
