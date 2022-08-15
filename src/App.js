@@ -40,7 +40,7 @@ function App() {
   const [userData, setUserData] = React.useState({});
   const [feedTweets, setFeedTweets] = React.useState([]);
   const [followedUsers, setFollowedUsers] = React.useState([]);
-  //console.log(feedTweets);
+  console.log(feedTweets);
 
   // getting followed users data to form tweet components
   async function getFollowed() {
@@ -99,6 +99,8 @@ function App() {
       },
     ]);
   }
+
+  // the prop  'comment' takes a boolean value and refers to if the is a comment or not
   function addTweet(text, comment) {
     const tweet = doc(collection(database, "tweets"));
     addTweetToDatabase(text, tweet, comment);

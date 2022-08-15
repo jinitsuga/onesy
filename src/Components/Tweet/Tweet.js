@@ -74,6 +74,7 @@ export default function Tweet(props) {
         >
           Like this tweet
         </button>
+        <button className="comment-tweet">Comment</button>
       </div>
       <div
         className="comments-container"
