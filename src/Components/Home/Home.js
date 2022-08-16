@@ -25,6 +25,8 @@ export default function Home(props) {
           followedUsers={props.followedUsers}
           likeTweetDb={props.likeTweetDb}
           likeTweet={props.likeTweet}
+          addTweetToDatabase={props.addTweetToDatabase}
+          addTweetToFeed={props.addTweetToFeed}
         />
       )}
     </section>

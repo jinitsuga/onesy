@@ -106,6 +106,23 @@ function App() {
     addTweetToDatabase(text, tweet, comment);
     addTweetToFeed(text, tweet.id, comment);
   }
+  // Different function to add comments since they aren't regular tweets
+  function addComment(text, comment, parentId) {
+    const commentPost = doc(collection(database, "tweets"));
+    addTweetToDatabase(text, commentPost, comment);
+    addTweetToFeed(text, commentPost.id, comment);
+    const updatedTweets = feedTweets.map((tweet) => {
+      if (tweet.id == parentId) {
+        return {
+          ...tweet,
+          data: {
+            ...tweet.data,
+            comments: [...tweet.data.comments, commentPost.id],
+          },
+        };
+      }
+    });
+  }
 
   // Likes handler functions - on both front and backend
 
@@ -179,6 +196,8 @@ function App() {
         setFeedTweets={setFeedTweets}
         followedUsers={followedUsers}
         addTweet={addTweet}
+        addTweetToDatabase={addTweetToDatabase}
+        addTweetToFeed={addTweetToFeed}
         likeTweetDb={likeTweetDb}
         likeTweet={likeTweet}
       />

@@ -80,6 +80,8 @@ export default function Feed(props) {
         comments={tweetComments[0] !== undefined ? tweetComments : ""}
         feedTweets={props.feedTweets}
         setFeedTweets={props.setFeedTweets}
+        addTweetToDatabase={props.addTweetToDatabase}
+        addTweetToFeed={props.addTweetToFeed}
       />
     );
   });

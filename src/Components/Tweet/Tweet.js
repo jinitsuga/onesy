@@ -83,7 +83,17 @@ export default function Tweet(props) {
           Comment
         </button>
       </div>
-      {commentPost ? <PostComment /> : ""}
+      {commentPost ? (
+        <PostComment
+          feedTweets={props.feedTweets}
+          setFeedTweets={props.setFeedTweets}
+          addTweetToDatabase={props.addTweetToDatabase}
+          addTweetToFeed={props.addTweetToFeed}
+          parentId={props.id}
+        />
+      ) : (
+        ""
+      )}
       <div
         className="comments-container"
         style={
