@@ -3,7 +3,7 @@ import React from "react";
 import Home from "./Components/Home/Home";
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "./firebase-config";
-import { getFirestore, increment } from "firebase/firestore";
+import { arrayUnion, getFirestore, increment } from "firebase/firestore";
 import {
   collection,
   addDoc,
@@ -81,6 +81,7 @@ function App() {
       likes: 0,
       date: new Date(),
       comment: comment,
+      comments: [],
     });
   }
   function addTweetToFeed(text, id, comment) {
@@ -106,11 +107,24 @@ function App() {
     addTweetToDatabase(text, tweet, comment);
     addTweetToFeed(text, tweet.id, comment);
   }
-  // Different function to add comments since they aren't regular tweets
+
+  // Different function to add comments since they aren't regular tweets (function's getting really messy)
+
+  async function addCommentToParent(id, childTweetId) {
+    const parentTweet = doc(database, "tweets", id);
+    await updateDoc(parentTweet, {
+      comments: arrayUnion(childTweetId),
+    });
+  }
+
   function addComment(text, comment, parentId) {
     const commentPost = doc(collection(database, "tweets"));
+
+    addCommentToParent(parentId, commentPost.id);
+
     addTweetToDatabase(text, commentPost, comment);
     addTweetToFeed(text, commentPost.id, comment);
+
     const updatedTweets = feedTweets.map((tweet) => {
       if (tweet.id == parentId) {
         return {
@@ -120,8 +134,11 @@ function App() {
             comments: [...tweet.data.comments, commentPost.id],
           },
         };
+      } else {
+        return tweet;
       }
     });
+    setFeedTweets(updatedTweets);
   }
 
   // Likes handler functions - on both front and backend
@@ -198,6 +215,7 @@ function App() {
         addTweet={addTweet}
         addTweetToDatabase={addTweetToDatabase}
         addTweetToFeed={addTweetToFeed}
+        addComment={addComment}
         likeTweetDb={likeTweetDb}
         likeTweet={likeTweet}
       />

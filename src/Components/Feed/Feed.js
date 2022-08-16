@@ -82,6 +82,7 @@ export default function Feed(props) {
         setFeedTweets={props.setFeedTweets}
         addTweetToDatabase={props.addTweetToDatabase}
         addTweetToFeed={props.addTweetToFeed}
+        addComment={props.addComment}
       />
     );
   });

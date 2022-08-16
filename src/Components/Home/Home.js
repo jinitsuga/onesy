@@ -27,6 +27,7 @@ export default function Home(props) {
           likeTweet={props.likeTweet}
           addTweetToDatabase={props.addTweetToDatabase}
           addTweetToFeed={props.addTweetToFeed}
+          addComment={props.addComment}
         />
       )}
     </section>

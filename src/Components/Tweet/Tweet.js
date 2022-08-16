@@ -87,8 +87,7 @@ export default function Tweet(props) {
         <PostComment
           feedTweets={props.feedTweets}
           setFeedTweets={props.setFeedTweets}
-          addTweetToDatabase={props.addTweetToDatabase}
-          addTweetToFeed={props.addTweetToFeed}
+          addComment={props.addComment}
           parentId={props.id}
         />
       ) : (
