@@ -1,5 +1,6 @@
 import React from "react";
 import "./Tweet.css";
+import PostComment from "./Comment/PostComment";
 
 // Get the tweets from users followed by client
 
@@ -7,6 +8,7 @@ export default function Tweet(props) {
   const [shownComments, setShownComments] = React.useState(false);
   const [commentsFeed, setCommentsFeed] = React.useState([]);
   const [tweetLiked, setTweetLiked] = React.useState(false);
+  const [commentPost, setCommentPost] = React.useState(false);
 
   const tweetRef = React.useRef(null);
   function handleLike() {
@@ -26,6 +28,9 @@ export default function Tweet(props) {
         logComments();
       }
     }
+  }
+  function enableCommentPost() {
+    setCommentPost(true);
   }
 
   // Show comments on click
@@ -74,8 +79,11 @@ export default function Tweet(props) {
         >
           Like this tweet
         </button>
-        <button className="comment-tweet">Comment</button>
+        <button className="comment-tweet" onClick={enableCommentPost}>
+          Comment
+        </button>
       </div>
+      {commentPost ? <PostComment /> : ""}
       <div
         className="comments-container"
         style={

@@ -176,6 +176,7 @@ function App() {
         getTweets={getTweets}
         getFollowed={getFollowed}
         feedTweets={feedTweets}
+        setFeedTweets={setFeedTweets}
         followedUsers={followedUsers}
         addTweet={addTweet}
         likeTweetDb={likeTweetDb}

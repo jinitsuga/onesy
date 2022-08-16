@@ -78,6 +78,8 @@ export default function Feed(props) {
         likeTweetDb={props.likeTweetDb}
         likeTweet={props.likeTweet}
         comments={tweetComments[0] !== undefined ? tweetComments : ""}
+        feedTweets={props.feedTweets}
+        setFeedTweets={props.setFeedTweets}
       />
     );
   });

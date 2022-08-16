@@ -21,6 +21,7 @@ export default function Home(props) {
           getTweets={props.getTweets}
           getFollowed={props.getFollowed}
           feedTweets={props.feedTweets}
+          setFeedTweets={props.setFeedTweets}
           followedUsers={props.followedUsers}
           likeTweetDb={props.likeTweetDb}
           likeTweet={props.likeTweet}
