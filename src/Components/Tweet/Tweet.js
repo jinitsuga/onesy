@@ -23,7 +23,7 @@ export default function Tweet(props) {
     if (!tweetRef.current.contains(e.target)) {
       setShownComments(false);
     } else {
-      if (props.comments[0] != undefined) {
+      if (props.comments[0] !== undefined) {
         setShownComments(true);
         logComments();
       }
@@ -33,10 +33,10 @@ export default function Tweet(props) {
     setCommentPost(true);
   }
 
+  console.log(props.comments);
   // Show comments on click
   function logComments() {
-    console.log(commentsFeed);
-    if (props.comments[0] !== undefined) {
+    if (props.comments !== "") {
       const comments = props.comments.map((comment) => (
         <Tweet
           name={comment.name}

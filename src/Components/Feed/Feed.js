@@ -7,6 +7,7 @@ export default function Feed(props) {
     props.getFollowed();
   }, []);
 
+  //const [commentsToFeed, setCommentsToFeed] = React.useState([]);
   const followed = props.followedUsers;
 
   // Separating feed tweets between non-comment/reply tweets and reply/comment tweets
@@ -17,7 +18,7 @@ export default function Feed(props) {
   const responses = props.feedTweets.filter(
     (tweet) => tweet.data.comment == true
   );
-
+  console.log(props.feedTweets);
   let userTweets = [];
   let comments = [];
 
@@ -33,9 +34,9 @@ export default function Feed(props) {
             text: array[i].data.text,
             likes: array[i].data.likes,
             comments: array[i].data.comments,
+            comment: array[i].data.comment,
 
             // Firebase's "timestamp" object is different than a regular Date object so had to tweak
-
             dateSeconds: array[i].data.date.seconds
               ? array[i].data.date.seconds
               : array[i].data.date.valueOf(),
@@ -61,11 +62,13 @@ export default function Feed(props) {
   userTweets = formTweetUsers(tweets);
   console.log(userTweets);
   comments = formTweetUsers(responses);
-
+  console.log(comments);
   const shownTweets = userTweets.map((tweet) => {
-    const tweetComments = comments.map((comment) => {
-      if (tweet.comments.includes(comment.id)) return comment;
-    });
+    let tweetComments = [];
+    for (let i = 0; i < comments.length; i++) {
+      if (tweet.comments.includes(comments[i].id))
+        tweetComments.push(comments[i]);
+    }
     return (
       <Tweet
         name={tweet.name}
@@ -77,7 +80,7 @@ export default function Feed(props) {
         id={tweet.id}
         likeTweetDb={props.likeTweetDb}
         likeTweet={props.likeTweet}
-        comments={tweetComments[0] !== undefined ? tweetComments : ""}
+        comments={typeof tweetComments[0] == "object" ? tweetComments : ""}
         feedTweets={props.feedTweets}
         setFeedTweets={props.setFeedTweets}
         addTweetToDatabase={props.addTweetToDatabase}
