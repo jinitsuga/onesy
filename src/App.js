@@ -108,6 +108,8 @@ function App() {
     addTweetToFeed(text, tweet.id, comment);
   }
 
+  // getting comments from backend for each tweet
+
   // Different function to add comments since they aren't regular tweets (function's getting really messy)
 
   async function addCommentToParent(id, childTweetId) {
@@ -117,7 +119,7 @@ function App() {
     });
   }
 
-  function addComment(text, comment, parentId) {
+  async function addComment(text, comment, parentId) {
     const commentPost = doc(collection(database, "tweets"));
 
     addCommentToParent(parentId, commentPost.id);
@@ -139,6 +141,7 @@ function App() {
       }
     });
     setFeedTweets(updatedTweets);
+    console.log("comment added");
   }
 
   // Likes handler functions - on both front and backend
