@@ -9,9 +9,17 @@ export default function Home(props) {
 
   return (
     <section className="home">
-      <Login userLogin={props.userLogin} userLoggedIn={props.userLoggedIn} />
+      <Login
+        userLogin={props.userLogin}
+        initializeUserData={props.initializeUserData}
+        userLoggedIn={props.userLoggedIn}
+      />
       {props.userLoggedIn && (
-        <Personal userLoggedIn={props.userLoggedIn} userData={props.userData} />
+        <Personal
+          userLoggedIn={props.userLoggedIn}
+          userData={props.userData}
+          initializeUserData={props.initializeUserData}
+        />
       )}
       {props.userLoggedIn && (
         <Post userData={props.userData} addTweet={props.addTweet} />

@@ -33,7 +33,6 @@ export default function Tweet(props) {
     setCommentPost(true);
   }
 
-  console.log(props.comments);
   // Show comments on click
   function logComments() {
     if (props.comments !== "") {
@@ -89,6 +88,8 @@ export default function Tweet(props) {
           setFeedTweets={props.setFeedTweets}
           addComment={props.addComment}
           parentId={props.id}
+          refreshFeed={props.refreshFeed}
+          setCommentPost={setCommentPost}
         />
       ) : (
         ""

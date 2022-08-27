@@ -12,6 +12,7 @@ export default function PostComment(props) {
 
   function handleSend() {
     props.addComment(commentText, true, props.parentId);
+    props.setCommentPost(false);
   }
   return (
     <div className="post-comment-container">
@@ -20,7 +21,13 @@ export default function PostComment(props) {
         placeholder="Any comments?"
         onChange={handleChange}
       ></input>
-      <button className="send-comment" onClick={handleSend}>
+      <button
+        className="send-comment"
+        onClick={(e) => {
+          e.preventDefault();
+          handleSend();
+        }}
+      >
         Send
       </button>
     </div>

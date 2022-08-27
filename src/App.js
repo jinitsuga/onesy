@@ -84,23 +84,42 @@ function App() {
       comments: [],
     });
   }
-  function addTweetToFeed(text, id, comment) {
-    setFeedTweets([
-      ...feedTweets,
-      {
-        data: {
-          userid: userData.id,
-          text: text,
-          likes: 0,
-          date: new Date(),
-          comment: comment,
-          comments: [],
-        },
-        id: id,
-      },
-    ]);
-  }
+  // function addTweetToFeed(text, id, comment) {
+  //   setFeedTweets([
+  //     ...feedTweets,
+  //     {
+  //       data: {
+  //         userid: userData.id,
+  //         text: text,
+  //         likes: 0,
+  //         date: new Date(),
+  //         comment: comment,
+  //         comments: [],
+  //       },
+  //       id: id,
+  //     },
+  //   ]);
+  // }
 
+  function addTweetToFeed(text, id, comment) {
+    setFeedTweets((oldFeed) => {
+      const newFeed = [
+        ...oldFeed,
+        {
+          data: {
+            userid: userData.id,
+            text: text,
+            likes: 0,
+            date: new Date(),
+            comment: comment,
+            comments: [],
+          },
+          id: id,
+        },
+      ];
+      return newFeed;
+    });
+  }
   // the prop  'comment' takes a boolean value and refers to if the is a comment or not
   function addTweet(text, comment) {
     const tweet = doc(collection(database, "tweets"));
@@ -119,13 +138,12 @@ function App() {
     });
   }
 
-  async function addComment(text, comment, parentId) {
+  function addComment(text, comment, parentId) {
     const commentPost = doc(collection(database, "tweets"));
 
     addCommentToParent(parentId, commentPost.id);
 
     addTweetToDatabase(text, commentPost, comment);
-    addTweetToFeed(text, commentPost.id, comment);
 
     const updatedTweets = feedTweets.map((tweet) => {
       if (tweet.id == parentId) {
@@ -141,6 +159,7 @@ function App() {
       }
     });
     setFeedTweets(updatedTweets);
+    addTweetToFeed(text, commentPost.id, comment);
     console.log("comment added");
   }
 
@@ -176,6 +195,12 @@ function App() {
     likeTweetApp(id);
   }
   // User log in - follows itself and ghost users automatically in order to show stuff on feed
+
+  function initializeUserData() {
+    getTweets();
+    getFollowed();
+  }
+
   async function userLogin(userName, userBio) {
     const user = doc(collection(database, "users"));
     const addUser = await setDoc(user, {
@@ -221,6 +246,7 @@ function App() {
         addComment={addComment}
         likeTweetDb={likeTweetDb}
         likeTweet={likeTweet}
+        initializeUserData={initializeUserData}
       />
     </div>
   );

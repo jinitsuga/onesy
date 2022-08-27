@@ -2,22 +2,35 @@ import React from "react";
 import Tweet from "../Tweet/Tweet.js";
 
 export default function Feed(props) {
-  React.useEffect(() => {
-    props.getTweets();
-    props.getFollowed();
-  }, []);
+  // React.useEffect(() => {
+  //   props.getTweets();
+  //   props.getFollowed();
+  // }, []);
 
-  //const [commentsToFeed, setCommentsToFeed] = React.useState([]);
+  React.useEffect(() => {
+    console.log("effect triggered");
+    const tweets = props.feedTweets.filter(
+      (tweet) => tweet.data.comment == false
+    );
+
+    const responses = props.feedTweets.filter(
+      (tweet) => tweet.data.comment == true
+    );
+    setFeedTweets(tweets);
+    setFeedResponses(responses);
+  }, [props.feedTweets]);
+
+  const [feedTweets, setFeedTweets] = React.useState([]);
+  const [feedResponses, setFeedResponses] = React.useState([]);
+
   const followed = props.followedUsers;
 
+  // Toggling feedUpdate to refresh the feed on comments made
+  // AA
   // Separating feed tweets between non-comment/reply tweets and reply/comment tweets
 
-  const tweets = props.feedTweets.filter(
-    (tweet) => tweet.data.comment == false
-  );
-  const responses = props.feedTweets.filter(
-    (tweet) => tweet.data.comment == true
-  );
+  console.log(feedTweets);
+  console.log(feedResponses);
   console.log(props.feedTweets);
   let userTweets = [];
   let comments = [];
@@ -50,7 +63,7 @@ export default function Feed(props) {
         }
       }
     });
-
+    //
     // sort tweets by date using dateSeconds prop.
     return tweetObjs.sort(function (a, b) {
       return b.dateSeconds - a.dateSeconds;
@@ -58,11 +71,11 @@ export default function Feed(props) {
   }
 
   // Forming tweets and responses objects formed with their respective authors info etc
-  //OK DOODIE
-  userTweets = formTweetUsers(tweets);
-  console.log(userTweets);
-  comments = formTweetUsers(responses);
-  console.log(comments);
+
+  userTweets = formTweetUsers(feedTweets);
+
+  comments = formTweetUsers(feedResponses);
+
   const shownTweets = userTweets.map((tweet) => {
     let tweetComments = [];
     for (let i = 0; i < comments.length; i++) {

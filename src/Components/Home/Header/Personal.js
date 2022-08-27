@@ -2,7 +2,9 @@ import React from "react";
 import "./Personal.css";
 export default function Personal(props) {
   // Personal info / "Header" component at the top of the application
-
+  React.useEffect(() => {
+    props.initializeUserData();
+  }, []);
   return (
     <div className="personal-display">
       <header></header>
