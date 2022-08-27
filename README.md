@@ -6,3 +6,5 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - backend/database structure planning.
 - incorporating a new hook (useRef hook) to detect clicking outside of an element. useRef essentially allows us to select a DOM node of our choosing
   through the proper setup.
+
+-CHECKING THAT FUNCTIONALITY IS CORRECT BEFORE DOUBTING ON THE LIBRARY'S SYSTEMS :D

@@ -138,6 +138,7 @@ function App() {
     });
   }
 
+  // All I needed was to add the ids to the parent FIRST, and then add the tweet as an object to the feed.
   function addComment(text, comment, parentId) {
     const commentPost = doc(collection(database, "tweets"));
 
@@ -160,7 +161,6 @@ function App() {
     });
     setFeedTweets(updatedTweets);
     addTweetToFeed(text, commentPost.id, comment);
-    console.log("comment added");
   }
 
   // Likes handler functions - on both front and backend
