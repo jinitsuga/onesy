@@ -4,3 +4,21 @@
   border: none;
   /* border-color: aqua; */
 }
+.tweet-userinfo {
+  display: flex;
+  align-items: center;
+}
+.tweet-username {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.tweet-avatar {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  background-color: aquamarine;
+  margin-right: 15px;
+}
+.tweet {
+  margin: 35px;
+}

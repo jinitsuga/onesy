@@ -8,11 +8,11 @@ export default function Post(props) {
     setTweetText(e.target.value);
   }
   return (
-    <div className="new-tweet">
+    <div className="new-post">
       <input
         onChange={handleChange}
         type="text"
-        className="new-tweet-text"
+        className="new-post-text"
         placeholder={"Anything to share, " + props.userData.name + "?"}
         value={tweetText}
       ></input>

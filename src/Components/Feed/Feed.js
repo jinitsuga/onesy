@@ -1,5 +1,6 @@
 import React from "react";
 import Tweet from "../Tweet/Tweet.js";
+import "./Feed.css";
 
 export default function Feed(props) {
   // React.useEffect(() => {
@@ -29,9 +30,6 @@ export default function Feed(props) {
   // AA
   // Separating feed tweets between non-comment/reply tweets and reply/comment tweets
 
-  console.log(feedTweets);
-  console.log(feedResponses);
-  console.log(props.feedTweets);
   let userTweets = [];
   let comments = [];
 
