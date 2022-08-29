@@ -60,8 +60,8 @@ export default function Tweet(props) {
         <h4 className="tweet-username">{props.name}</h4>
       </div>
       <p className="tweet-text"> {props.text} </p>
+      <span className="tweet-date"> {props.date} </span>
       <div className="tweet-details" id={props.id}>
-        <span className="tweet-date"> {props.date} </span>
         {/* <span className="comments-number">
           Comments: {props.comments.length}
         </span> */}

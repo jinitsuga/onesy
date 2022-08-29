@@ -13,7 +13,7 @@ export default function Personal(props) {
         style={props.userLoggedIn ? { display: "block" } : { display: "none" }}
       >
         <div className="personal-data">
-          <img className="profile-pic"></img>
+          <img className="profile-pic" href={props.userData.avatar}></img>
           <h3 className="username"> {props.userData.name} </h3>
           <p className="bio"> {props.userData.bio} </p>
           <div className="details">
