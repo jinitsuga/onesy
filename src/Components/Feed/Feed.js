@@ -41,8 +41,7 @@ export default function Feed(props) {
         if (array[i].data.userid == user.id) {
           tweetObjs.push({
             name: user.data.metadata.name,
-            avatar:
-              "https://images.pexels.com/photos/6495165/pexels-photo-6495165.jpeg",
+            avatar: user.data.metadata.avatar,
             text: array[i].data.text,
             likes: array[i].data.likes,
             comments: array[i].data.comments,

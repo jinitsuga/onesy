@@ -56,7 +56,7 @@ export default function Tweet(props) {
   return (
     <div className="tweet" id={props.id} ref={tweetRef} onClick={handleClick}>
       <div className="tweet-userinfo">
-        <img className="tweet-avatar" href={props.avatar}></img>
+        <img className="tweet-avatar" src={props.avatar}></img>
         <h4 className="tweet-username">{props.name}</h4>
       </div>
       <p className="tweet-text"> {props.text} </p>
