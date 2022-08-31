@@ -27,24 +27,26 @@ export default function PostComment(props) {
   }
   return (
     <div
-      className="post-comment-container"
+      className="modal-container"
       ref={postCommentRef}
-      style={{ display: props.commentPost ? "block" : "none" }}
+      style={{ display: props.commentPost ? "flex" : "none" }}
     >
-      <input
-        className="comment-text"
-        placeholder="Any comments?"
-        onChange={handleChange}
-      ></input>
-      <button
-        className="send-comment"
-        onClick={(e) => {
-          e.preventDefault();
-          handleSend();
-        }}
-      >
-        Send
-      </button>
+      <div className="post-comment-container">
+        <input
+          className="comment-text"
+          placeholder="Any comments?"
+          onChange={handleChange}
+        ></input>
+        <button
+          className="send-comment"
+          onClick={(e) => {
+            e.preventDefault();
+            handleSend();
+          }}
+        >
+          Send
+        </button>
+      </div>
     </div>
   );
 }
