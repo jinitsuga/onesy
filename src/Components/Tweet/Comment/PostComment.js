@@ -9,6 +9,9 @@ export default function PostComment(props) {
 
   const postCommentRef = React.useRef(null);
 
+  function escapeModal() {
+    props.setCommentPost(false);
+  }
   React.useEffect(() => {
     document.addEventListener("click", handleClick, true);
   }, []);
@@ -19,6 +22,11 @@ export default function PostComment(props) {
   function handleClick(e) {
     if (!postCommentRef.current.contains(e.target)) {
       props.setCommentPost(false);
+    }
+  }
+  function handleKeyDown(e) {
+    if (e.key == "Enter") {
+      handleSend();
     }
   }
   function handleSend() {
@@ -32,10 +40,19 @@ export default function PostComment(props) {
     >
       <div className="post-comment-container" ref={postCommentRef}>
         <p className="commenting">Commenting {props.opName}'s post</p>
+        <button
+          onClick={() => {
+            escapeModal();
+          }}
+          className="close-modal"
+        >
+          X
+        </button>
         <input
           className="comment-text"
           placeholder="Any comments?"
           onChange={handleChange}
+          onKeyDown={handleKeyDown}
         ></input>
         <button
           className="send-comment"
