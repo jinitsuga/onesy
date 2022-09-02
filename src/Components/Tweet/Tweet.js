@@ -84,6 +84,7 @@ export default function Tweet(props) {
       </div>
 
       <PostComment
+        opName={props.name}
         feedTweets={props.feedTweets}
         setFeedTweets={props.setFeedTweets}
         addComment={props.addComment}

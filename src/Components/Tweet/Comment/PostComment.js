@@ -28,10 +28,10 @@ export default function PostComment(props) {
   return (
     <div
       className="modal-container"
-      ref={postCommentRef}
       style={{ display: props.commentPost ? "flex" : "none" }}
     >
-      <div className="post-comment-container">
+      <div className="post-comment-container" ref={postCommentRef}>
+        <p className="commenting">Commenting {props.opName}'s post</p>
         <input
           className="comment-text"
           placeholder="Any comments?"
