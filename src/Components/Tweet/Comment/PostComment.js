@@ -11,6 +11,7 @@ export default function PostComment(props) {
   const postCommentRef = React.useRef(null);
 
   // Autofocusing comment input (so it closes on escape press as well as better UX)
+  // Executed when commentPost changes since this component is mounted as soon as the feed/tweets are rendered.
 
   const commentInput = React.useCallback(
     (inputElement) => {
