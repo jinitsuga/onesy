@@ -6,10 +6,22 @@ import "./PostComment.css";
 export default function PostComment(props) {
   const [commentText, setCommentText] = React.useState("");
   const [postCommentShown, setPostCommentShown] = React.useState(true);
+  // const [openModal, setOpenModal] = React.useState(true);
 
   const postCommentRef = React.useRef(null);
 
-  function escapeModal() {
+  // Autofocusing comment input (so it closes on escape press as well as better UX)
+
+  const commentInput = React.useCallback(
+    (inputElement) => {
+      if (inputElement) {
+        inputElement.focus();
+      }
+    },
+    [props.commentPost]
+  );
+
+  function handleEscape() {
     props.setCommentPost(false);
   }
   React.useEffect(() => {
@@ -25,7 +37,11 @@ export default function PostComment(props) {
     }
   }
   function handleKeyDown(e) {
-    if (e.key == "Enter") {
+    if (e.key == "Escape") {
+      e.preventDefault();
+      handleEscape();
+    } else if (e.key == "Enter") {
+      e.preventDefault();
       handleSend();
     }
   }
@@ -42,13 +58,14 @@ export default function PostComment(props) {
         <p className="commenting">Commenting {props.opName}'s post</p>
         <button
           onClick={() => {
-            escapeModal();
+            handleEscape();
           }}
           className="close-modal"
         >
           X
         </button>
         <input
+          ref={commentInput}
           className="comment-text"
           placeholder="Any comments?"
           onChange={handleChange}
