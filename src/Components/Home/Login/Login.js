@@ -4,9 +4,13 @@ export default function Login(props) {
   const [userName, setUserName] = React.useState("");
   const [userBio, setUserBio] = React.useState("");
 
+  // Simply tracking if log in function was executed for button style
+  const [pressedLogin, setPressedLogin] = React.useState(false);
+
   function handleKeyDown(e) {
     if (e.key == "Enter") {
       e.preventDefault();
+      setPressedLogin(true);
       props.userLogin(userName, userBio);
     }
   }
@@ -14,9 +18,11 @@ export default function Login(props) {
   function handleUserName(e) {
     setUserName(e.target.value);
   }
+
   function handleBio(e) {
     setUserBio(e.target.value);
   }
+
   return (
     <div
       className="login"
@@ -43,9 +49,12 @@ export default function Login(props) {
           ></input>
         </label>
         <button
+          disabled={pressedLogin ? true : false}
+          style={{ opacity: pressedLogin ? "30%" : null }}
           className="login-button"
           onClick={(e) => {
             e.preventDefault();
+            setPressedLogin(true);
             props.userLogin(userName, userBio);
           }}
         >
