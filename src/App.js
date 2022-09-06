@@ -22,6 +22,9 @@ const database = getFirestore(app);
 const usersRef = collection(database, "users");
 const tweetsRef = collection(database, "tweets");
 
+// Tracking # of users since Firebase doesn't have a built-in way to know the number of docs in a collection
+let usersNumber = 6;
+
 // ----- Code to run in case of issue with 'users' collection -----
 // adding ghost users
 // async function addGhostUser(user) {
@@ -40,9 +43,16 @@ function App() {
   const [userData, setUserData] = React.useState({});
   const [feedTweets, setFeedTweets] = React.useState([]);
   const [followedUsers, setFollowedUsers] = React.useState([]);
+  const [suggestedUsers, setSuggestedUsers] = React.useState([]);
 
   // getting non-followed users to suggest
-  async function getSuggested() {}
+  async function getSuggested() {
+    let alreadyFollowed = [];
+    followedUsers.forEach((user) => {
+      alreadyFollowed.push(user.data.metadata.random);
+    });
+    console.log(alreadyFollowed);
+  }
 
   // getting followed users data to form tweet components
   async function getFollowed() {
@@ -61,7 +71,7 @@ function App() {
     );
     setFollowedUsers(followed);
   }
-
+  console.log(followedUsers);
   // getting tweets from users that client is following
   async function getTweets() {
     let tweets = [];
@@ -209,13 +219,15 @@ function App() {
       metadata: {
         name: userName,
         bio: userBio,
-        following: [
-          "SY9m6DQrvfdTBufof6bu",
-          "bWMWhxJOE1tvPHjaomdP",
-          "gtU3Eb7zFD264YvnND5v",
-          user.id,
-        ],
       },
+      following: [
+        "SY9m6DQrvfdTBufof6bu",
+        "bWMWhxJOE1tvPHjaomdP",
+        "gtU3Eb7zFD264YvnND5v",
+        user.id,
+      ],
+      followers: [],
+      random: usersNumber + 1,
     });
     setUserData({
       name: userName,
@@ -228,9 +240,10 @@ function App() {
         user.id,
       ],
     });
+    usersNumber++;
     setUserLoggedIn(true);
   }
-
+  getSuggested();
   return (
     <div className="app">
       <Home
