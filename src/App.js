@@ -40,17 +40,19 @@ function App() {
   const [userData, setUserData] = React.useState({});
   const [feedTweets, setFeedTweets] = React.useState([]);
   const [followedUsers, setFollowedUsers] = React.useState([]);
-  console.log(feedTweets);
+
+  // getting non-followed users to suggest
+  async function getSuggested() {}
 
   // getting followed users data to form tweet components
   async function getFollowed() {
-    let userPromises = [];
+    let usersPromise = [];
     let followed = [];
     userData.following.forEach((userid) =>
-      userPromises.push(doc(database, "users", userid))
+      usersPromise.push(doc(database, "users", userid))
     );
 
-    const followedPromises = userPromises.map((prom) => getDoc(prom));
+    const followedPromises = usersPromise.map((prom) => getDoc(prom));
 
     await Promise.all(followedPromises).then((values) =>
       values.forEach((value) =>
