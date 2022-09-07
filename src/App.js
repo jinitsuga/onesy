@@ -262,7 +262,6 @@ function App() {
 
     setUserLoggedIn(true);
   }
-  getSuggested();
   return (
     <div className="app">
       <Home
