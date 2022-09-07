@@ -22,9 +22,6 @@ const database = getFirestore(app);
 const usersRef = collection(database, "users");
 const tweetsRef = collection(database, "tweets");
 
-// Tracking # of users since Firebase doesn't have a built-in way to know the number of docs in a collection
-let usersNumber = 6;
-
 // ----- Code to run in case of issue with 'users' collection -----
 // adding ghost users
 // async function addGhostUser(user) {
@@ -44,6 +41,25 @@ function App() {
   const [feedTweets, setFeedTweets] = React.useState([]);
   const [followedUsers, setFollowedUsers] = React.useState([]);
   const [suggestedUsers, setSuggestedUsers] = React.useState([]);
+  const [userNumber, setUserNumber] = React.useState(null);
+
+  // Tracking # of users since Firebase doesn't have a built-in way to know the number of docs in a collection
+
+  async function getNumberUsers() {
+    const usersNumberRef = doc(database, "usersNumber", "usersNumber");
+    const usersSnap = await getDoc(usersNumberRef);
+
+    setUserNumber(usersSnap.data().number);
+    console.log("user #: " + (userNumber + 1));
+    return usersSnap.data().number + 1;
+  }
+  // Adding / incrementing user number for when the client logs in
+  async function incrementUserNumber() {
+    const usersNumberRef = doc(database, "usersNumber", "usersNumber");
+    await updateDoc(usersNumberRef, {
+      number: increment(1),
+    });
+  }
 
   // getting non-followed users to suggest
   async function getSuggested() {
@@ -214,6 +230,9 @@ function App() {
   }
 
   async function userLogin(userName, userBio) {
+    const numberOfUser = await getNumberUsers();
+    await incrementUserNumber();
+    console.log(userName + " is user # " + numberOfUser);
     const user = doc(collection(database, "users"));
     const addUser = await setDoc(user, {
       metadata: {
@@ -227,7 +246,7 @@ function App() {
         user.id,
       ],
       followers: [],
-      random: usersNumber + 1,
+      random: numberOfUser,
     });
     setUserData({
       name: userName,
@@ -240,7 +259,7 @@ function App() {
         user.id,
       ],
     });
-    usersNumber++;
+
     setUserLoggedIn(true);
   }
   getSuggested();
