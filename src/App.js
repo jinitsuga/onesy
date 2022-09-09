@@ -60,16 +60,58 @@ function App() {
       number: increment(1),
     });
   }
-
+  function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min);
+  }
   // getting non-followed users to suggest
   async function getSuggested() {
+    // Followed indexes to compare to
+    let toGet = [];
+    let toIgnore = [];
     let alreadyFollowed = [];
     followedUsers.forEach((user) => {
       alreadyFollowed.push(user.data.random);
     });
-    console.log(alreadyFollowed);
+    let usersPromise = [];
+    while (usersPromise.length < 3) {
+      const randomNumber = getRandomInt(1, userNumber);
+      if (!alreadyFollowed.includes(randomNumber)) {
+        toGet.push(randomNumber);
+        alreadyFollowed.push(randomNumber);
+        usersPromise.push(
+          query(
+            collection(database, "users"),
+            where("random", "==", randomNumber)
+          )
+        );
+      } else {
+        toIgnore.push(randomNumber);
+      }
+    }
+    console.log("ignore " + " ==> " + toIgnore);
+    console.log("to get " + " ==> " + toGet);
   }
 
+  // async function getUsers(alreadyFollowed) {
+  //   let usersPromise = [];
+  //   for (let i = 0; i < 4; i++) {
+  //     const randomNumber = Math.floor(Math.random() * userNumber);
+  //     if (!alreadyFollowed.includes(randomNumber)) {
+  //       alreadyFollowed.push(randomNumber);
+  //       usersPromise.push(
+  //         query(
+  //           collection(database, "users"),
+  //           where("random", "==", randomNumber)
+  //         )
+  //       );
+  //     } else {
+  //       i--;
+  //     }
+  //   }
+  //   console.log(usersPromise);
+  // }
   // getting followed users data to form tweet components
   async function getFollowed() {
     let usersPromise = [];
