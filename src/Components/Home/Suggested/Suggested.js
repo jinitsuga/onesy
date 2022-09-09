@@ -1,6 +1,7 @@
 import React from "react";
 
-export default function Suggested() {
+export default function Suggested(props) {
+  props.getSuggested();
   // Pulling non followed users using the newly added 'random' property on each user in the database.
 
   // Filter already followed users out of the possibilities

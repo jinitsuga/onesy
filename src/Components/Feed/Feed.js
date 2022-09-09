@@ -1,6 +1,7 @@
 import React from "react";
 import Tweet from "../Tweet/Tweet.js";
 import "./Feed.css";
+import Suggested from "../Home/Suggested/Suggested.js";
 
 export default function Feed(props) {
   // React.useEffect(() => {
@@ -101,5 +102,11 @@ export default function Feed(props) {
     );
   });
 
-  return <section className="feed">{shownTweets} </section>;
+  return (
+    <section className="feed">
+      {shownTweets}
+      <Suggested getSuggested={props.getSuggested} />
+      <div className="suggested-container"> </div>
+    </section>
+  );
 }

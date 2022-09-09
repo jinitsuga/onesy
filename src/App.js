@@ -65,7 +65,7 @@ function App() {
   async function getSuggested() {
     let alreadyFollowed = [];
     followedUsers.forEach((user) => {
-      alreadyFollowed.push(user.data.metadata.random);
+      alreadyFollowed.push(user.data.random);
     });
     console.log(alreadyFollowed);
   }
@@ -87,7 +87,7 @@ function App() {
     );
     setFollowedUsers(followed);
   }
-  console.log(followedUsers);
+
   // getting tweets from users that client is following
   async function getTweets() {
     let tweets = [];
@@ -280,6 +280,7 @@ function App() {
         likeTweetDb={likeTweetDb}
         likeTweet={likeTweet}
         initializeUserData={initializeUserData}
+        getSuggested={getSuggested}
       />
     </div>
   );
