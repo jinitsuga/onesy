@@ -90,28 +90,12 @@ function App() {
         toIgnore.push(randomNumber);
       }
     }
-    console.log("ignore " + " ==> " + toIgnore);
-    console.log("to get " + " ==> " + toGet);
+    const suggestedDocs = usersPromise.map((prom) => getDoc(prom));
+    await Promise.all(suggestedDocs).then((values) => {
+      console.log(values);
+    });
   }
 
-  // async function getUsers(alreadyFollowed) {
-  //   let usersPromise = [];
-  //   for (let i = 0; i < 4; i++) {
-  //     const randomNumber = Math.floor(Math.random() * userNumber);
-  //     if (!alreadyFollowed.includes(randomNumber)) {
-  //       alreadyFollowed.push(randomNumber);
-  //       usersPromise.push(
-  //         query(
-  //           collection(database, "users"),
-  //           where("random", "==", randomNumber)
-  //         )
-  //       );
-  //     } else {
-  //       i--;
-  //     }
-  //   }
-  //   console.log(usersPromise);
-  // }
   // getting followed users data to form tweet components
   async function getFollowed() {
     let usersPromise = [];
