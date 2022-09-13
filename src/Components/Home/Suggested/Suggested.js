@@ -1,12 +1,22 @@
 import React from "react";
+import "./Suggested.css";
 
 export default function Suggested(props) {
-  props.getSuggested();
-  // Pulling non followed users using the newly added 'random' property on each user in the database.
+  React.useEffect(() => {
+    props.getSuggested();
+  }, []);
 
-  // Filter already followed users out of the possibilities
-  // Generate random number
-  // Get user according to generated random number
-  // Form the promise with 3-4 users and make the query
-  return <div className="suggested"></div>;
+  console.log(props.suggestedUsers);
+  const suggested = props.suggestedUsers.map((user) => {
+    return (
+      <div className="suggested-user" key={user.data.random} id={user.id}>
+        <button onClick={null} className="follow-user">
+          Follow
+        </button>
+        <h3>{user.data.metadata.name}</h3>
+        <img className="user-avatar" src={user.data.metadata.avatar}></img>
+      </div>
+    );
+  });
+  return <div className="suggested"> {suggested} </div>;
 }

@@ -37,6 +37,7 @@ export default function Home(props) {
           addTweetToFeed={props.addTweetToFeed}
           addComment={props.addComment}
           getSuggested={props.getSuggested}
+          suggestedUsers={props.suggestedUsers}
         />
       )}
     </section>

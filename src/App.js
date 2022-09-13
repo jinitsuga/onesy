@@ -68,7 +68,7 @@ function App() {
   // getting non-followed users to suggest
   async function getSuggested() {
     // Followed indexes to compare to
-    let toGet = [];
+    let toSuggest = [];
     let toIgnore = [];
     let alreadyFollowed = [];
     followedUsers.forEach((user) => {
@@ -86,7 +86,6 @@ function App() {
     while (usersPromise.length < 3) {
       const randomNumber = getRandomInt(1, userNumber);
       if (!alreadyFollowed.includes(randomNumber)) {
-        toGet.push(randomNumber);
         alreadyFollowed.push(randomNumber);
         usersPromise.push(
           getDocs(
@@ -105,9 +104,11 @@ function App() {
     await Promise.all(usersPromise).then((values) => {
       values.forEach((value) => {
         value.forEach((doc) => {
-          console.log(doc.id, doc.data());
+          toSuggest.push({ id: doc.id, data: doc.data() });
         });
       });
+      console.log(toSuggest);
+      setSuggestedUsers(toSuggest);
     });
 
     // const suggestedDocs = usersPromise.map((prom) => prom.forEach(doc));
@@ -327,6 +328,7 @@ function App() {
         likeTweet={likeTweet}
         initializeUserData={initializeUserData}
         getSuggested={getSuggested}
+        suggestedUsers={suggestedUsers}
       />
     </div>
   );

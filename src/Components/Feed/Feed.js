@@ -105,8 +105,14 @@ export default function Feed(props) {
   return (
     <section className="feed">
       {shownTweets}
-      <Suggested getSuggested={props.getSuggested} />
-      <div className="suggested-container"> </div>
+
+      <div className="suggested-container">
+        {" "}
+        <Suggested
+          getSuggested={props.getSuggested}
+          suggestedUsers={props.suggestedUsers}
+        />
+      </div>
     </section>
   );
 }

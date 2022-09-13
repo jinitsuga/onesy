@@ -1,0 +1,11 @@
+.user-avatar {
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  border: solid 1px aquamarine;
+  margin-right: 15px;
+}
+.suggested {
+  border: solid 1px;
+  border-color: white;
+}
