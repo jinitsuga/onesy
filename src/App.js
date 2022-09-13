@@ -75,25 +75,45 @@ function App() {
       alreadyFollowed.push(user.data.random);
     });
     let usersPromise = [];
+    //  ---------------
+    // const q = query(collection(database, "users"), where("random", "==", 3));
+    // const qSnap = await getDocs(q);
+
+    // qSnap.forEach((doc) => {
+    //   console.log(doc.id, doc.data());
+    // });
+    //  -----------------
     while (usersPromise.length < 3) {
       const randomNumber = getRandomInt(1, userNumber);
       if (!alreadyFollowed.includes(randomNumber)) {
         toGet.push(randomNumber);
         alreadyFollowed.push(randomNumber);
         usersPromise.push(
-          query(
-            collection(database, "users"),
-            where("random", "==", randomNumber)
+          getDocs(
+            query(
+              collection(database, "users"),
+              where("random", "==", randomNumber)
+            )
           )
         );
       } else {
         toIgnore.push(randomNumber);
       }
     }
-    const suggestedDocs = usersPromise.map((prom) => getDoc(prom));
-    await Promise.all(suggestedDocs).then((values) => {
-      console.log(values);
+
+    console.log(usersPromise);
+    await Promise.all(usersPromise).then((values) => {
+      values.forEach((value) => {
+        value.forEach((doc) => {
+          console.log(doc.id, doc.data());
+        });
+      });
     });
+
+    // const suggestedDocs = usersPromise.map((prom) => prom.forEach(doc));
+    // await Promise.all(suggestedDocs).then((values) => {
+    //   console.log(values);
+    // });
   }
 
   // getting followed users data to form tweet components
@@ -103,7 +123,7 @@ function App() {
     userData.following.forEach((userid) =>
       usersPromise.push(doc(database, "users", userid))
     );
-
+    console.log(usersPromise);
     const followedPromises = usersPromise.map((prom) => getDoc(prom));
 
     await Promise.all(followedPromises).then((values) =>
