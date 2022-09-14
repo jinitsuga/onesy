@@ -7,6 +7,9 @@ export default function Home(props) {
   //
   // Probably a better way to render stuff than this - should reorganize later
 
+  React.useEffect(() => {
+    props.initializeUserData();
+  }, []);
   return (
     <section className="home">
       <Login

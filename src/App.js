@@ -69,13 +69,15 @@ function App() {
   async function getSuggested() {
     // Followed indexes to compare to
     let toSuggest = [];
-    let toIgnore = [];
+
     let alreadyFollowed = [];
+    console.log(followedUsers);
     followedUsers.forEach((user) => {
       alreadyFollowed.push(user.data.random);
     });
     let usersPromise = [];
-
+    console.log(alreadyFollowed);
+    console.log("should be ready");
     while (usersPromise.length < 3) {
       const randomNumber = getRandomInt(1, userNumber);
       if (!alreadyFollowed.includes(randomNumber)) {
@@ -88,12 +90,9 @@ function App() {
             )
           )
         );
-      } else {
-        toIgnore.push(randomNumber);
       }
     }
 
-    console.log(usersPromise);
     await Promise.all(usersPromise).then((values) => {
       values.forEach((value) => {
         value.forEach((doc) => {
@@ -107,8 +106,9 @@ function App() {
   // Follow user from suggested section
 
   function followUser(id) {
+    const user = suggestedUsers.find((user) => user.id == id);
     setFollowedUsers((oldFollowed) => {
-      const newFollowed = [...oldFollowed, id];
+      const newFollowed = [...oldFollowed, user];
       console.log(newFollowed);
       return newFollowed;
     });
