@@ -38,6 +38,7 @@ export default function Home(props) {
           addComment={props.addComment}
           getSuggested={props.getSuggested}
           suggestedUsers={props.suggestedUsers}
+          followUser={props.followUser}
         />
       )}
     </section>

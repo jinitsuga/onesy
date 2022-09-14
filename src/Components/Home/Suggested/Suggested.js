@@ -10,7 +10,12 @@ export default function Suggested(props) {
   const suggested = props.suggestedUsers.map((user) => {
     return (
       <div className="suggested-user" key={user.data.random} id={user.id}>
-        <button onClick={null} className="follow-user">
+        <button
+          onClick={(e) => {
+            props.followUser(e.target.parentElement.id);
+          }}
+          className="follow-user"
+        >
           Follow
         </button>
         <h3>{user.data.metadata.name}</h3>

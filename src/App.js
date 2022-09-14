@@ -75,14 +75,7 @@ function App() {
       alreadyFollowed.push(user.data.random);
     });
     let usersPromise = [];
-    //  ---------------
-    // const q = query(collection(database, "users"), where("random", "==", 3));
-    // const qSnap = await getDocs(q);
 
-    // qSnap.forEach((doc) => {
-    //   console.log(doc.id, doc.data());
-    // });
-    //  -----------------
     while (usersPromise.length < 3) {
       const randomNumber = getRandomInt(1, userNumber);
       if (!alreadyFollowed.includes(randomNumber)) {
@@ -110,11 +103,15 @@ function App() {
       console.log(toSuggest);
       setSuggestedUsers(toSuggest);
     });
+  }
+  // Follow user from suggested section
 
-    // const suggestedDocs = usersPromise.map((prom) => prom.forEach(doc));
-    // await Promise.all(suggestedDocs).then((values) => {
-    //   console.log(values);
-    // });
+  function followUser(id) {
+    setFollowedUsers((oldFollowed) => {
+      const newFollowed = [...oldFollowed, id];
+      console.log(newFollowed);
+      return newFollowed;
+    });
   }
 
   // getting followed users data to form tweet components
@@ -329,6 +326,7 @@ function App() {
         initializeUserData={initializeUserData}
         getSuggested={getSuggested}
         suggestedUsers={suggestedUsers}
+        followUser={followUser}
       />
     </div>
   );
