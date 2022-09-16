@@ -20,7 +20,7 @@ export default function Feed(props) {
     );
     setFeedTweets(tweets);
     setFeedResponses(responses);
-  }, [props.feedTweets]);
+  }, [props.feedTweets, props.followedUsers]);
 
   const [feedTweets, setFeedTweets] = React.useState([]);
   const [feedResponses, setFeedResponses] = React.useState([]);

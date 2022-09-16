@@ -110,11 +110,17 @@ function App() {
 
   function followUser(id) {
     const user = suggestedUsers.find((user) => user.id == id);
+    setUserData((oldData) => {
+      const newData = { ...oldData, following: [...oldData.following, id] };
+      console.log(newData);
+      return newData;
+    });
     setFollowedUsers((oldFollowed) => {
       const newFollowed = [...oldFollowed, user];
       console.log(newFollowed);
       return newFollowed;
     });
+    getTweets();
   }
 
   // getting followed users data to form tweet components
@@ -144,6 +150,7 @@ function App() {
     querySnap.forEach((doc) => {
       tweets.push({ data: doc.data(), id: doc.id });
     });
+    console.log(tweets);
     setFeedTweets(tweets);
   }
 
