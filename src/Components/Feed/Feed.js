@@ -113,6 +113,7 @@ export default function Feed(props) {
           suggestedUsers={props.suggestedUsers}
           followUser={props.followUser}
           followedUsers={props.followedUsers}
+          userLoggedIn={props.userLoggedIn}
         />
       </div>
     </section>

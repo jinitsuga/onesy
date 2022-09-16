@@ -2,9 +2,10 @@ import React from "react";
 import "./Suggested.css";
 
 export default function Suggested(props) {
+  // This useEffect will make one extra query to the DB - Later fix
   React.useEffect(() => {
     props.getSuggested();
-  }, [props.followedUsers]);
+  }, [props.userLoggedIn]);
 
   console.log(props.suggestedUsers);
   const suggested = props.suggestedUsers.map((user) => {

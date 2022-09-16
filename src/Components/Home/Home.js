@@ -8,7 +8,7 @@ export default function Home(props) {
   // Probably a better way to render stuff than this - should reorganize later
   React.useEffect(() => {
     props.initializeUserData();
-  }, []);
+  }, [props.followedUsers]);
   return (
     <section className="home">
       {props.userLoggedIn && (

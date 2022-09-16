@@ -79,6 +79,8 @@ function App() {
     let usersPromise = [];
     console.log(alreadyFollowed);
     console.log("should be ready");
+
+    // potential endless loop if less than 3 users on the platform are left to follow.
     while (usersPromise.length < 3) {
       const randomNumber = getRandomInt(1, userNumber);
       if (!alreadyFollowed.includes(randomNumber)) {
