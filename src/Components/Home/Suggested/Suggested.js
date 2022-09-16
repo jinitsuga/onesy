@@ -24,5 +24,10 @@ export default function Suggested(props) {
       </div>
     );
   });
-  return <div className="suggested"> {suggested} </div>;
+  return (
+    <div className="suggested">
+      <h3>Random users you may know</h3>
+      {suggested}
+    </div>
+  );
 }

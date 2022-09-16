@@ -104,7 +104,7 @@ export default function Feed(props) {
 
   return (
     <section className="feed">
-      {shownTweets}
+      <div className="tweets-container">{shownTweets}</div>
 
       <div className="suggested-container">
         {" "}
