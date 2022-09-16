@@ -4,6 +4,13 @@ import "./Post.css";
 export default function Post(props) {
   const [tweetText, setTweetText] = React.useState("");
 
+  function handleKeyDown(e) {
+    if (e.key == "Enter") {
+      e.preventDefault();
+      props.addTweet(tweetText, false);
+    }
+  }
+
   function handleChange(e) {
     setTweetText(e.target.value);
   }
@@ -15,6 +22,7 @@ export default function Post(props) {
         className="new-post-text"
         placeholder={"Anything to share, " + props.userData.name + "?"}
         value={tweetText}
+        onKeyDown={handleKeyDown}
       ></input>
       <button
         className="submit-post"
