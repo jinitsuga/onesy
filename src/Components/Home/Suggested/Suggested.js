@@ -14,19 +14,24 @@ export default function Suggested(props) {
         <button
           onClick={(e) => {
             props.followUser(e.target.parentElement.id);
+            props.setUpdatedFeed((oldFeed) => {
+              return !oldFeed;
+            });
           }}
           className="follow-user"
         >
           Follow
         </button>
-        <h3>{user.data.metadata.name}</h3>
-        <img className="user-avatar" src={user.data.metadata.avatar}></img>
+        <div className="user-info">
+          <h3>{user.data.metadata.name}</h3>
+          <img className="user-avatar" src={user.data.metadata.avatar}></img>
+        </div>
       </div>
     );
   });
   return (
     <div className="suggested">
-      <h3>Random users you may know</h3>
+      <h3 className="suggested-title">Random users you may know</h3>
       {suggested}
     </div>
   );

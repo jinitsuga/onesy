@@ -24,6 +24,7 @@ export default function Feed(props) {
 
   const [feedTweets, setFeedTweets] = React.useState([]);
   const [feedResponses, setFeedResponses] = React.useState([]);
+  const [updatedFeed, setUpdatedFeed] = React.useState(false);
 
   const followed = props.followedUsers;
 
@@ -114,6 +115,7 @@ export default function Feed(props) {
           followUser={props.followUser}
           followedUsers={props.followedUsers}
           userLoggedIn={props.userLoggedIn}
+          setUpdatedFeed={setUpdatedFeed}
         />
       </div>
     </section>
