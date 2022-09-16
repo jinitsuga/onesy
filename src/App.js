@@ -120,6 +120,8 @@ function App() {
       console.log(newFollowed);
       return newFollowed;
     });
+
+    // ADD THE USER'S TWEETS BY HAND ON THE FRONT END INSTEAD OF RERUNNING THIS FUNCTION
     getTweets();
   }
 
