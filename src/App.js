@@ -1,4 +1,5 @@
 import "./App.css";
+import Login from "./Components/Home/Login/Login";
 import React from "react";
 import Home from "./Components/Home/Home";
 import { initializeApp } from "firebase/app";
@@ -308,26 +309,34 @@ function App() {
   }
   return (
     <div className="app">
-      <Home
-        userLogin={userLogin}
-        userLoggedIn={userLoggedIn}
-        userData={userData}
-        getTweets={getTweets}
-        getFollowed={getFollowed}
-        feedTweets={feedTweets}
-        setFeedTweets={setFeedTweets}
-        followedUsers={followedUsers}
-        addTweet={addTweet}
-        addTweetToDatabase={addTweetToDatabase}
-        addTweetToFeed={addTweetToFeed}
-        addComment={addComment}
-        likeTweetDb={likeTweetDb}
-        likeTweet={likeTweet}
-        initializeUserData={initializeUserData}
-        getSuggested={getSuggested}
-        suggestedUsers={suggestedUsers}
-        followUser={followUser}
-      />
+      {!userLoggedIn ? (
+        <Login
+          userLogin={userLogin}
+          initializeUserData={initializeUserData}
+          userLoggedIn={userLoggedIn}
+        />
+      ) : (
+        <Home
+          userLogin={userLogin}
+          userLoggedIn={userLoggedIn}
+          userData={userData}
+          getTweets={getTweets}
+          getFollowed={getFollowed}
+          feedTweets={feedTweets}
+          setFeedTweets={setFeedTweets}
+          followedUsers={followedUsers}
+          addTweet={addTweet}
+          addTweetToDatabase={addTweetToDatabase}
+          addTweetToFeed={addTweetToFeed}
+          addComment={addComment}
+          likeTweetDb={likeTweetDb}
+          likeTweet={likeTweet}
+          initializeUserData={initializeUserData}
+          getSuggested={getSuggested}
+          suggestedUsers={suggestedUsers}
+          followUser={followUser}
+        />
+      )}
     </div>
   );
 }

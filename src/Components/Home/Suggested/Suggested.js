@@ -4,7 +4,7 @@ import "./Suggested.css";
 export default function Suggested(props) {
   React.useEffect(() => {
     props.getSuggested();
-  }, []);
+  }, [props.followedUsers]);
 
   console.log(props.suggestedUsers);
   const suggested = props.suggestedUsers.map((user) => {
